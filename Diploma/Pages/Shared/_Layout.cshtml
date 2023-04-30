@@ -128,13 +128,12 @@
             if (color == "red"){
                 console.log("color" + color)
                 var toast = new bs5.Toast({
-                    body: `<div class="toast-header">
+                    body: `<div class="toast-header bg-warning">
                                 <strong class="me-auto">Bootstrap</strong>
-                                <small>11 мин. назад</small>
+                                <small>Уведомление</small>
                                 </div>
-                                <div class="toast-body bg-warning">
-                                        ${color}
-                                ${message}
+                                <div class="toast-body ">
+                                    ${message}
                                 </div>`,
                     placement: 'bottom-right',
                 });
@@ -143,14 +142,13 @@
             else if (color == "blue") {
                 console.log("color" + color)
                 var toast = new bs5.Toast({
-                    body: `<div class="toast-header">
-                                        <strong class="me-auto">Bootstrap</strong>
-                                        <small>11 мин. назад</small>
-                                        </div>
-                                        <div class="toast-body bg-info">
-                                                ${color}
-                                        ${message}
-                                        </div>`,
+                    body: `<div class="toast-header bg-info">
+                                <strong class="me-auto">Bootstrap</strong>
+                                <small>Оповещение</small>
+                                </div>
+                                <div class="toast-body ">
+                                    ${message}
+                                </div>`,
                     placement: 'bottom-right',
                 });
                 toast.show();

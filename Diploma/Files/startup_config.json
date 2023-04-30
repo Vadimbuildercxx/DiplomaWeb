@@ -1,8 +1,7 @@
 
 	{
-		"Cameras": [ 1, 2 ],
+		"Cameras": [ 1],
 		"Sources": [
-			"C:\\Users\\Vadim\\Documents\\TestVideos\\BB_dde3fde4-9086-4d2f-93c1-583b21d22d10_preview.mp4",
 			"C:\\Users\\Vadim\\Documents\\TestVideos\\BB_dde3fde4-9086-4d2f-93c1-583b21d22d10_preview.mp4"
 		]
 

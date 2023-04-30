@@ -55,31 +55,42 @@ namespace Diploma.Controllers
         }
 
         // Create message data Tuple<message text, type>
-        public Tuple<string, Models.Message> CreateMessage(string yamlText, float threshold = 0.0f)
+        public async Task<Tuple<string, Models.Message>> CreateMessage(string yamlText,
+            float probThreshold = 0.0f, int maxDetCount = 0)
         {
             YamlConfiguration yamlConfiguration = ParseYamlString(yamlText);
 
             int camId = GetCamIdBySource(yamlConfiguration.Device);
-            string areaName = GetAreaNameByCamId(camId);
+            string areaName = await GetAreaNameByCamId(camId);
 
             StringBuilder message = new StringBuilder();
             message.AppendLine("На территории " + areaName + ", идентификатор" + camId);
             message.AppendLine("Обнаружены нарушения:");
 
-            List<int> objectsList = yamlConfiguration.Detections.Where(x => x[0] > threshold).Select(x => (int)x[1]).Distinct().ToList();
+            List<int> objectsList = yamlConfiguration.Detections.Where(x => x[0] > probThreshold).Select(x => (int)x[1]).Distinct().ToList();
 
             for (int i = 0; i < objectsList.Count; i++)
             {
+                int objCount = yamlConfiguration.Detections.Where(x => x[1] == objectsList[i]).Select(x => x[1]).ToList().Count;
 
-                message.AppendLine();
-                Console.WriteLine(yamlConfiguration.Detections[i][0] + " " +
-                    yamlConfiguration.Detections[i][1]);
-                message.Append("");
+                if (maxDetCount < objCount)
+                {
+                    Console.WriteLine(yamlConfiguration.Detections[i][0] + " " +
+                        yamlConfiguration.Detections[i][1]);
+                    message.AppendLine("Не ношение предмета [" + yamlConfiguration.DetectedObjectName(objectsList[i]) + "]"
+                        + ", в количестве - " + objCount);
+                    return Tuple.Create(message.ToString(), Models.Message.Alert);
+                }
+                else
+                {
+                    message.AppendLine("Не ношение предмета [" + yamlConfiguration.DetectedObjectName(objectsList[i]) + "]"
+                        + ", в количестве - " + objCount);
+                }
+                
             }
             
 
-            return Tuple.Create("На территории [текст] обнаржены нарушения не ношения" + yamlConfiguration.DetectedObjectName(1),
-                Models.Message.Warning);
+            return Tuple.Create(message.ToString(), Models.Message.Warning);
         }
 
         public async Task AddDataToLog()
@@ -91,13 +102,14 @@ namespace Diploma.Controllers
             }
         }
 
-        public string GetAreaNameByCamId(int id)
+        public async Task<string> GetAreaNameByCamId(int id)
         {
             using (var scope = _provider.CreateScope())
             {
                 var dbHandler = scope.ServiceProvider.GetRequiredService<DBContext>();
-                int areaId = dbHandler.Cameras.Where(x=>x.Id == id).FirstOrDefaultAsync().Id;
-                string name = dbHandler.Areas.Where(x => x.Id == id).FirstOrDefault().Name;
+
+                int areaId = await dbHandler.Cameras.Where(x=>x.Id == id).Select(x=>x.Id).FirstOrDefaultAsync();
+                string name = await dbHandler.Areas.Where(x => x.Id == id).Select(x => x.Name).FirstOrDefaultAsync();
                 return name;
             }
             
