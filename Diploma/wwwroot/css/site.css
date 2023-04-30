@@ -1,0 +1,83 @@
+html {
+    font-size: 14px;
+    /*overflow: hidden; */
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(90deg,#0d0d0d,#000000);
+}
+
+.btn {
+    border-radius: 20px;
+}
+
+.dataTables_paginate .paginate_button {
+    background-color: black!important;
+}
+
+.dataTables_filter input[type="search"]:focus {
+    background-color: black;
+    position: static;
+}
+.dataTables_length select:focus {
+    background-color: black;
+}
+.dataTables_length select {
+    background-color: black;
+    color: white !important;
+}
+
+.dataTables_filter input {
+    background-color: black;
+    color: white !important;
+}
+
+.dataTables_filter label {
+    color: white !important;
+}
+
+.dataTables_length label {
+    color: white !important;
+}
+
+.dataTables_wrapper select {
+    color: red;
+}
+
+.card {
+    backdrop-filter: blur(0.6rem);
+    box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.5);
+    background-color: rgba(255,255,255,0.05) !important;
+}
+.modal-content {
+    backdrop-filter: blur(0.6rem);
+    box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.6);
+    background-color: rgba(255,255,255,0.05) !important;
+}
+
+.btn-primary {
+    /*background: linear-gradient(90deg, rgba(205,0,8,1) 0%, rgba(226,142,74,1) 100%);*/
+    background: linear-gradient(90deg, rgba(58,0,205,1) 0%, rgba(158,74,226,1) 100%);
+}
+
+.circle {
+    background: rgb(2,0,36);
+    /*background: linear-gradient(70deg, blue, magenta);*/
+    background: linear-gradient(90deg, rgba(58,0,205,1) 0%, rgba(158,74,226,1) 100%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+

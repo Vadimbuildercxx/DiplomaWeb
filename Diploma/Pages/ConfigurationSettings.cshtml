@@ -1,0 +1,29 @@
+﻿@page
+@model Diploma.Pages.ConfigurationSettingsModel
+@{
+    
+}
+
+<h>Редактирование файла конфигурации</h>
+<table class="table table-striped GridPartialView">
+    <thead>
+        <tr>
+            <th>
+                <p class="text-white">Id</p>
+            </th>
+            <th>
+                <p class="text-white">Источник</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="PersonListGridContent">
+        @foreach (var (cam, source) in Model.ProjectConfiguration.Cameras.Zip(Model.ProjectConfiguration.Sources))
+        {
+            <tr>
+                <td><p class="text-white">@cam</p></td>
+                <td><p class="text-white">@source</p></td>
+
+            </tr>
+        }
+    </tbody>
+</table>

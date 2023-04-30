@@ -1,0 +1,51 @@
+﻿@using Diploma.Models;
+
+@model List<Area>
+
+<table id="AreaGridPartialView" class="table table-striped GridPartialView" style="  overflow: scroll">
+    <thead>
+        <tr>
+            <th> 
+                <p class="text-white">Название</p>
+            </th>
+            <th> 
+                <p class="text-white">Описание</p>
+            </th>
+            <th> 
+                <p class="text-white">Уровень</p>
+            </th>
+            <th>
+                <p class="text-white">Действия</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="PersonListGridContent">
+        @foreach(Area area in Model)
+        {
+            <tr>
+                <td><p class="text-white">@area.Name</p></td>
+                <td><p class="text-white">@area.Description</p></td>
+                <td><p class="text-white">@area.Level</p></td>
+                <td>
+                    <a onclick="jQueryModalGet('?handler=AreaCreateOrEdit&id=@area.Id','Редактировать')" class="btn btn-info text-white"> Редактировать</a>
+                    <a onclick="jQueryModalGet('?handler=AreaDelete&id=@area.Id','Удалить')" class="btn btn-danger text-white"> Удалить</a>
+
+                    @*<button type="button" class="btn btn-outline-danger" data-handler="AreaListPartial" data-toggle="ajax-modal-delete-person" data-id="@area.Id" data-url="@Url.Page("Edit", "AreaModalDeletePartial")">
+                        Удалить
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-handler="AreaListPartial" data-toggle="ajax-modal-edit-person" data-id="@area.Id" data-url="@Url.Page("Edit", "AreaModalEditPartial")">
+                        Редактировать
+                    </button>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $("#AreaGridPartialView").DataTable({
+        stateSave: true,
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/ru.json",
+        },
+    });
+</script>

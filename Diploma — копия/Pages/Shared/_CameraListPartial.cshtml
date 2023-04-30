@@ -1,0 +1,40 @@
+﻿@using Diploma.Models;
+
+@model List<Camera>
+
+<table id="GridPartialView" class="table table-striped GridPartialView">
+    <thead>
+        <tr>
+            <th> 
+                <p class="text-white">Имя</p>
+            </th>
+            <th> 
+                <p class="text-white">Область</p>
+            </th>
+            <th> 
+                <p class="text-white">Описание</p>
+            </th>
+            <th>
+                <p class="text-white">Действия</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="CameraListGridContent">
+        @foreach(Camera cam in Model)
+        {
+            <tr>
+                <td><p class="text-white">@cam.Name</p></td>
+                <td><p class="text-white">@cam.Area</p></td>
+                <td><p class="text-white">@cam.Description</p></td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="ajax-modal-delete-person" data-id="@cam.Id" data-url="@Url.Page("Edit", "CameraModalDeletePartial")">
+                        Удалить
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="ajax-modal-edit-person" data-id="@cam.Id" data-url="@Url.Page("Edit", "CameraModalEditPartial")">
+                        Редактировать
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

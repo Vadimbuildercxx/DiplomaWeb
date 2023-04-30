@@ -1,0 +1,41 @@
+﻿@using Diploma.Models;
+
+@model List<Person>
+
+<table id="GridPartialView" class="table table-striped GridPartialView">
+    <thead>
+        <tr>
+            <th> 
+                <p class="text-white">Имя</p>
+            </th>
+            <th> 
+                <p class="text-white">Фамилия</p>
+            </th>
+            <th> 
+                <p class="text-white">Email</p>
+            </th>
+            <th>
+                <p class="text-white">Действия</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="PersonListGridContent">
+        @foreach(Person person in Model)
+        {
+            <tr>
+                <td><p class="text-white">@person.FirstName</p></td>
+                <td><p class="text-white">@person.LastName</p></td>
+                <td><p class="text-white">@person.Email</p></td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger" data-handler="PersonListPartial" data-toggle="ajax-modal-delete-person" data-id="@person.Id" data-url="@Url.Page("Edit", "PersonModalDeletePartial")">
+                        Удалить
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-handler="PersonListPartial" data-toggle="ajax-modal-edit-person" data-id="@person.Id" data-url="@Url.Page("Edit", "PersonModalEditPartial")">
+                        Редактировать
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

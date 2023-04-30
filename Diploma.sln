@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diploma", "Diploma\Diploma.csproj", "{A124C036-C613-4C81-8B74-07D1A42867A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E13AE09-ABE5-4FB9-982D-E884340811BC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{8E8A0B54-380D-4548-A12E-6BA83884DDED}"
+	ProjectSection(SolutionItems) = preProject
+		startup_config.json = startup_config.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A124C036-C613-4C81-8B74-07D1A42867A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A124C036-C613-4C81-8B74-07D1A42867A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A124C036-C613-4C81-8B74-07D1A42867A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A124C036-C613-4C81-8B74-07D1A42867A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA06981A-4B3D-4F3D-B224-6A7C84738DC2}
+	EndGlobalSection
+EndGlobal

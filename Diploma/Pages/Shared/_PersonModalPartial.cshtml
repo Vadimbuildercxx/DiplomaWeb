@@ -1,0 +1,91 @@
+﻿@using Diploma.Models;
+
+@*// Pages/Shared/_PersonModalPartial.cshtml*@
+@model Person
+<!-- Modal -->
+
+<div class="modal-content rounded-3 bg-black">
+    <div class="modal-body">
+        <form asp-page-handler="PersonCreateOrEdit" asp-route-id="@Model.Id" method="post" onsubmit="return jQueryModalPost(this, 'PersonListPartialView');">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+            <input asp-for="Id" class="form-control" type="hidden">
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="FirstName" class="form-control" placeholder=" " required>
+                        <label asp-for="FirstName" for="floatingInput"></label>
+                        
+                    </div>
+                    @*<span asp-validation-for="FirstName" class="text-danger"></span>*@
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" type="email" class="form-control" placeholder=" " required />
+                        <label asp-for="Email" for="floatingInput"></label>
+                        @*<span asp-validation-for="Email" class="text-danger"></span>*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="LastName" class="form-control" placeholder=" " required>
+                        <label asp-for="LastName" for="floatingInput"></label>
+                        @*<span asp-validation-for="LastName" class="text-danger"></span>*@
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Phone" type="number" class="form-control" placeholder=" " required />
+                        <label asp-for="Phone" for="floatingInput"></label>
+                        @*<span asp-validation-for="Phone" class="text-danger"></span>*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Patronymic" type="text" class="form-control" placeholder=" ">
+                        <label asp-for="Patronymic" for="floatingInput"></label>
+                        @*<span asp-validation-for="Patronymic" class="text-danger"></span>*@
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Age" type="number" class="form-control" placeholder=" " required>
+                        <label asp-for="Age" for="floatingInput"></label>
+                        @*<span asp-validation-for="Age" class="text-danger"></span>*@
+                    </div>
+                </div>
+            </div>
+            <fieldset class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0 text-white">Пол</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input asp-for="Gender" class=" form-check-input" type="radio" id="gridRadios1" value="Male" checked>
+                        <label class="form-check-label text-white" for="gridRadios1">
+                            Мужской
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Gender" class="form-check-input" type="radio" id="gridRadios2" value="Female">
+                        <label class="form-check-label text-white" for="gridRadios2">
+                            Женский
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary save-button">Сохранить</button>
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" data-handler="PersonListPartial" data-listid="PersonListPartialView" data-save="modal">Сохранить</button>*@
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

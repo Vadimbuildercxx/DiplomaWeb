@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/js/signalr/",
+      "files": [
+        "dist/browser/signalr.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "vanta@0.5.24",
+      "destination": "wwwroot/vanta/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "datatable@2.0.2",
+      "destination": "wwwroot/lib/datatable/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "datatables@1.10.21",
+      "destination": "wwwroot/lib/datatables/"
+    }
+  ]
+}

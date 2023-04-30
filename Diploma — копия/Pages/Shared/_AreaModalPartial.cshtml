@@ -1,0 +1,58 @@
+﻿@using Diploma.Models;
+
+@*// Pages/Shared/_PersonModalPartial.cshtml*@
+@model Area
+<!-- Modal -->
+<div class="modal fade" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="true" style="backdrop-filter: blur(0.6rem);  box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.5); background-color: rgba(255,255,255,0.05) !important;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-3 bg-black">
+            <div class="modal-header">
+                <h5 class="modal-title text-white" id="addContactLabel">Add contact</h5>
+            </div>
+            <div class="modal-body">
+                <form asp-page-handler="AreaModalPartial">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input asp-for="Id" class="form-control" type="hidden">
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <label asp-for="Name" class="col-form-label text-white"></label>
+                            <input asp-for="Name" class="form-control">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label asp-for="Description" class="col-form-label text-white"></label>
+                            <input asp-for="Description" class="form-control"/>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label asp-for="Level" class="col-form-label text-white"></label>
+                                <input asp-for="Level" type="number" class="form-control" />
+                                <span asp-validation-for="Level" class="text-danger"></span>
+                            </div>
+                            @*<label asp-for="Area" class="col-form-label text-white"></label>
+                            <select asp-for="Area" class="form-select" aria-label="Default select example" id="SubCategoryMenu">
+                                @*<option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>*@
+                            @*</select>*@
+
+                        </div>
+
+                        
+                        
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" data-listid="AreaListPartialView" data-handler="AreaListPartial" data-save="modal">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>

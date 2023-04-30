@@ -1,0 +1,28 @@
+﻿@model int
+
+@*<div class="modal fade" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-3 bg-black">
+            <div class="modal-header">
+                <h5 class="modal-title text-white" id="addContactLabel">Вы уверены что хотите удалить запись?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-listid="AreaListPartialView" data-handler="AreaListPartial" data-delete="modal" data-id="@Model" data-url="@Url.Page("Edit", "AreaModalDeletePartial")">
+                    Удалить
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="modal-content rounded-3 bg-black">
+    <div class="modal-body">
+        <form asp-page-handler="AreaDelete" asp-route-id="@Model" method="post" onsubmit="return jQueryModalPost(this, 'AreaListPartialView');">
+            <h5 class="text-white">Вы уверены что хотите удалить запись?</h5>
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger save-button">Удлалить</button>
+        </form>
+    </div>
+</div>

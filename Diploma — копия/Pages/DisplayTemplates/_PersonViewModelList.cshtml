@@ -1,0 +1,23 @@
+﻿@model List<Diploma.Models.Person>
+@{
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model)
+        {
+            <tr>
+                <td>@person.FirstName</td>
+                <td>@person.LastName</td>
+                <td>@person.Patronymic</td>
+                <td>@person.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>

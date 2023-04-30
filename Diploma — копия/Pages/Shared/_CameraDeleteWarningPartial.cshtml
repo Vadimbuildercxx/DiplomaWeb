@@ -1,0 +1,17 @@
+﻿@model int
+
+<div class="modal fade" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-3 bg-black">
+            <div class="modal-header">
+                <h5 class="modal-title text-white" id="addContactLabel">Вы уверены что хотите удалить запись?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-listid="CameraListPartialView" data-handler="CameraListPartial" data-delete="modal" data-id="@Model" data-url="@Url.Page("Edit", "CameraModalDeletePartial")">
+                    Удалить
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>

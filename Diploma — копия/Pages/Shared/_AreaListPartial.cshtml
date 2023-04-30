@@ -1,0 +1,40 @@
+﻿@using Diploma.Models;
+
+@model List<Area>
+
+<table id="GridPartialView" class="table table-striped GridPartialView">
+    <thead>
+        <tr>
+            <th> 
+                <p class="text-white">Название</p>
+            </th>
+            <th> 
+                <p class="text-white">Описание</p>
+            </th>
+            <th> 
+                <p class="text-white">Уровень</p>
+            </th>
+            <th>
+                <p class="text-white">Действия</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="PersonListGridContent">
+        @foreach(Area area in Model)
+        {
+            <tr>
+                <td><p class="text-white">@area.Name</p></td>
+                <td><p class="text-white">@area.Description</p></td>
+                <td><p class="text-white">@area.Level</p></td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger" data-handler="AreaListPartial" data-toggle="ajax-modal-delete-person" data-id="@area.Id" data-url="@Url.Page("Edit", "AreaModalDeletePartial")">
+                        Удалить
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" data-handler="AreaListPartial" data-toggle="ajax-modal-edit-person" data-id="@area.Id" data-url="@Url.Page("Edit", "AreaModalEditPartial")">
+                        Редактировать
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

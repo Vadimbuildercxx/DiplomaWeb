@@ -1,0 +1,63 @@
+﻿@using Diploma.Models;
+
+@*// Pages/Shared/_PersonModalPartial.cshtml*@
+@model Area
+<!-- Modal -->
+
+<div class="modal-content rounded-3 bg-black">
+    <div class="modal-body">
+        <form asp-page-handler="AreaCreateOrEdit" asp-route-id="@Model.Id" method="post" onsubmit="return jQueryModalPost(this, 'AreaListPartialView');">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+            <input asp-for="Id" class="form-control" type="hidden">
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" placeholder=" ">
+                        <label asp-for="Name" for="floatingInput"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Description" class="form-control" placeholder=" " />
+                        <label asp-for="Description" for="floatingInput"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Level" type="number" class="form-control" placeholder=" " />
+                        <label asp-for="Level" for="floatingInput"></label>
+                        <span asp-validation-for="Level" class="text-danger"></span>
+                    </div>
+                    @*<label asp-for="Area" class="col-form-label text-white"></label>
+                    <select asp-for="Area" class="form-select" aria-label="Default select example" id="SubCategoryMenu">
+                    @*<option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>*@
+                    @*</select>*@
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>*@
+                @*<button type="button" class="btn btn-secondary close-button" data-dismiss="modal">Отмена</button>*@
+                <button type="submit" class="btn btn-primary save-button">Сохранить</button>
+            </div>
+        </form>
+    </div>
+    @*<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+    <button type="button" class="btn btn-primary" data-listid="AreaListPartialView" data-handler="AreaListPartial" data-save="modal">Сохранить</button>
+    </div>*@
+    
+</div>
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>
