@@ -20,11 +20,13 @@ namespace Diploma.Controllers
 
         public string DetectedObjectName(int index)
         {
-            if (Detections?.Length -1 < index)
+            if (ClassNames?.Length <= index)
             {
-                throw new IndexOutOfRangeException(nameof(Detections));
+
+                throw new IndexOutOfRangeException(nameof(ClassNames));
+
             }
-            return ClassNames[(int)Detections[index][^1]];
+            return ClassNames[index];
         }
     }
 
@@ -47,10 +49,10 @@ namespace Diploma.Controllers
 
         public YamlConfiguration ParseYamlString(string yamlText)
         {
-            Console.WriteLine(yamlText);
+            //Console.WriteLine(yamlText);
             YamlConfiguration yamlConfig = _deserializer.Deserialize<YamlConfiguration>(yamlText);
-            Console.WriteLine("----" + yamlConfig.Device + " " + yamlConfig.DetectedObjectName(1));
-            AddDataToLog();
+            //Console.WriteLine("----" + yamlConfig.Device + " " + yamlConfig.DetectedObjectName(1));
+            //AddDataToLog();
             return yamlConfig;
         }
 
@@ -75,30 +77,45 @@ namespace Diploma.Controllers
 
                 if (maxDetCount < objCount)
                 {
-                    Console.WriteLine(yamlConfiguration.Detections[i][0] + " " +
-                        yamlConfiguration.Detections[i][1]);
-                    message.AppendLine("Не ношение предмета [" + yamlConfiguration.DetectedObjectName(objectsList[i]) + "]"
+                    Console.WriteLine(yamlConfiguration.Detections.Length + " " + i);
+                    message.AppendLine("Не ношение предмета [" + 
+                        yamlConfiguration.DetectedObjectName(objectsList[i]) + "]"
                         + ", в количестве - " + objCount);
+                    await AddDataToLog(Models.Message.Alert, message.ToString(),
+                        DateTime.Now, camId);
                     return Tuple.Create(message.ToString(), Models.Message.Alert);
                 }
                 else
                 {
                     message.AppendLine("Не ношение предмета [" + yamlConfiguration.DetectedObjectName(objectsList[i]) + "]"
                         + ", в количестве - " + objCount);
+                    
                 }
                 
             }
-            
+
+            await AddDataToLog(Models.Message.Warning, message.ToString(),
+                        DateTime.Now, camId);
 
             return Tuple.Create(message.ToString(), Models.Message.Warning);
         }
 
-        public async Task AddDataToLog()
+        public async Task AddDataToLog(Models.Message mType, string? text,
+            DateTime dt, int camId)
         {
             using (var scope = _provider.CreateScope())
             {
                 var dbHandler = scope.ServiceProvider.GetRequiredService<DBContext>();
-                Console.WriteLine(dbHandler.Areas.FirstOrDefault()?.Name);
+                Log log = new()
+                {
+                    CameraId = camId,
+                    DateTime = dt,
+                    MessageType = mType,
+                    Text = text
+                };
+                Console.WriteLine(text);
+                await dbHandler.AddAsync(log);
+                await dbHandler.SaveChangesAsync();
             }
         }
 

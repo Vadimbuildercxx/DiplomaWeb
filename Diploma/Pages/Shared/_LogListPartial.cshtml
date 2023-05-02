@@ -1,0 +1,49 @@
+﻿@using Diploma.Models;
+
+@model List<LogDTO>
+
+<table id="AreaGridPartialView" class="table table-striped GridPartialView" style="  overflow: scroll">
+    <thead>
+        <tr>
+            <th>
+                <p class="text-white">Id</p>
+            </th>
+            <th> 
+                <p class="text-white">Тип сообщения</p>
+            </th>
+            <th> 
+                <p class="text-white">Текст</p>
+            </th>
+            <th>
+                <p class="text-white">Id камеры</p>
+            </th>
+            <th> 
+                <p class="text-white">Камера</p>
+            </th>
+            <th>
+                <p class="text-white">Время</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="PersonListGridContent">
+        @foreach(LogDTO log in Model)
+        {
+            <tr>
+                <td><p class="text-white">@log.Id</p></td>
+                <td><p class="text-white">@log.MessageType.ToString()</p></td>
+                <td><p class="text-white">@log.Text</p></td>
+                <td><p class="text-white">@log.CameraId</p></td>
+                <td><p class="text-white">@log.CameraName</p></td>
+                <td><p class="text-white">@log.DateTime.ToString("dd/MM/yyyy hh:mm:ss")</p></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $("#AreaGridPartialView").DataTable({
+        stateSave: true,
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/ru.json",
+        },
+    });
+</script>

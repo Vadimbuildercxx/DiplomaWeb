@@ -1,0 +1,19 @@
+﻿@page
+@model Diploma.Pages.LogsModel
+@{
+}
+<div id="logList">
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#logList').load('?handler=AreaListPartial');
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

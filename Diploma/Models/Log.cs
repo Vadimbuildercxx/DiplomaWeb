@@ -16,6 +16,6 @@ namespace Diploma.Models
         public Message MessageType { get; set; }
         public string? Text { get; set; }
         public DateTime DateTime { get; set; }
-        public Camera? Camera { get; set; }
+        public int? CameraId { get; set; }
     }
 }

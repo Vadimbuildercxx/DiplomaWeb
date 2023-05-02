@@ -1,8 +1,15 @@
+{
 
-	{
-		"Cameras": [ 1],
-		"Sources": [
-			"C:\\Users\\Vadim\\Documents\\TestVideos\\BB_dde3fde4-9086-4d2f-93c1-583b21d22d10_preview.mp4"
-		]
+	"Weights": "saved_weights\\720x720.pt",
+	"IsDetectFaces": true,
+	"ImageSize": 1280,
+	"Stride": 32,
+	"SendEveryXsec": 2,
+	"Cameras": [
+		2
+	],
+	"Sources": [
+		"C:\\Users\\Vadim\\Videos\\TestVideos\\BB_dde3fde4-9086-4d2f-93c1-583b21d22d10_preview.mp4"
+	]
 
-	}
+}
