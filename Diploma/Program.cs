@@ -20,7 +20,15 @@ builder.Services.AddSignalR();
 string connectionString = builder.Configuration.GetConnectionString("DBConnectionString");
     
 
-builder.Services.AddDbContext<DBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)), ServiceLifetime.Scoped);
+builder.Services.AddDbContext<DBContext>(options => 
+            options.UseMySql(
+                connectionString,
+                ServerVersion.AutoDetect(connectionString),
+                options => options.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: System.TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null)
+                ), ServiceLifetime.Scoped);
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBContext>();
