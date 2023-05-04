@@ -17,5 +17,7 @@ namespace Diploma.Models
         public string? Text { get; set; }
         public DateTime DateTime { get; set; }
         public int? CameraId { get; set; }
+        public int? PPEId { get; set; }
+        public string? DetectionPath { get; set;}
     }
 }

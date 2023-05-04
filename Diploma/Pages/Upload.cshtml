@@ -5,7 +5,50 @@
 <head>
     @*<link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
     <link rel="stylesheet" src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />*@
-    
+
 </head>
 
+<canvas id="canvas2" width="100" height="100"></canvas>
+<script>
+    const ctx1 = document.getElementById("canvas2").getContext("2d");
+    ctx1.fillStyle = "#343635";
+    //Generates a black/white heightmap
+    for (let y = 0; y < 100; y++) {
+        for (let x = 0; x < 100; x++) {
+            let n = Noise2D(x*0.01 * 10, y*0.01* 10);
+            n += 1.0;
+            n *= 0.5;
+            let rgb = Math.round(255*n);
+            ctx1.fillStyle = "rgba("+rgb+","+rgb+","+rgb+",1.0)";
+            ctx1.fillRect(x, y, 1, 1);
+        }
+    }
+
+    //Generates a color heightmap with fractal brownian motion
+    //for (let y = 0; y < 100; y++) {
+    //    for (let x = 0; x < 100; x++) {
+    //        let n = 0.0,
+    //            a = 1.0,
+    //            f = 0.005;
+    //        for (let o = 0; o < 8; o++) {
+    //            let v = a * Noise2D(x * f * 20, y * f*20);
+    //            n += v;
+
+    //            a *= 0.5;
+    //            f *= 2.0;
+    //        }
+
+    //        n += 1.0;
+    //        n *= 0.5;
+    //        let rgb = Math.round(255 * n);
+    //        if (n < 0.5)
+    //            ctx1.fillStyle = "rgba(0.0,0.0," + (rgb * 2) + ",1.0)";
+    //        else if (n < 0.9)
+    //            ctx1.fillStyle = "rgba(0.0," + rgb + "," + Math.round(rgb * 0.5) + ",1.0)";
+    //        else
+    //            ctx1.fillStyle = "rgba(" + rgb + "," + rgb + "," + rgb + ",1.0)";
+    //        ctx1.fillRect(x, y, 1, 1);
+    //    }
+    //}
+</script>
 

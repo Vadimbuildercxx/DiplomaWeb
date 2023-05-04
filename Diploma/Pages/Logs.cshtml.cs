@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Diploma.Pages
 {
@@ -16,21 +17,26 @@ namespace Diploma.Pages
         public DateTime DateTime { get; set; }
         public int? CameraId { get; set; }
         public string CameraName { get; set; } = string.Empty;
+        public int? ObjectId { get; set; }
+        public string ObjectName { get; set; } = string.Empty;
+        public string DetectionPath { get; set; } = string.Empty;
     }
 
     public class LogsModel : PageModel
     {
         private DBContext _dbContext;
+        private IWebHostEnvironment Environment;
 
-        public LogsModel(DBContext dBContext)
+        public LogsModel(DBContext dBContext, IWebHostEnvironment _environment)
         {
             _dbContext = dBContext;
+            this.Environment = _environment;
             //PersonViewModel = new PersonViewModel();
         }
         public void OnGet()
         {
         }
-        public PartialViewResult OnGetAreaListPartial()
+        public PartialViewResult OnGetLogListPartial()
         {
             List<LogDTO> logDTOs = new();
             List<Log> logs = _dbContext.Logs.ToList();
@@ -43,7 +49,10 @@ namespace Diploma.Pages
                     Text = log.Text,
                     DateTime = log.DateTime,
                     CameraId = log.CameraId,
-                    CameraName = _dbContext.Cameras.Where(x=> x.Id == log.CameraId).Select(x=>x.Name).FirstOrDefault()
+                    CameraName = _dbContext.Cameras.Where(x=> x.Id == log.CameraId).Select(x=>x.Name).FirstOrDefault(),
+                    ObjectId = log.PPEId,
+                    ObjectName = _dbContext.PPEs.Where(x => x.Id == log.PPEId).Select(x => x.Name).FirstOrDefault(),
+                    DetectionPath = log.DetectionPath,
                 });
             }
 
@@ -53,5 +62,23 @@ namespace Diploma.Pages
                 ViewData = new ViewDataDictionary<List<LogDTO>>(ViewData, logDTOs)
             };
         }
+        public FileContentResult OnGetDownloadFile(string filePath)
+        {
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "image/jpeg", Path.GetFileName(filePath));
+        }
+        //public FileResult OnGetDownloadFile(string fileName)
+        //{
+        //    fileName = fileName.Replace("__", "\\");
+        //    Console.WriteLine("-----------"+ this.Environment.WebRootPath + " " + fileName);
+        //    //Build the File Path.
+        //    string path = Path.Combine(this.Environment.WebRootPath, "C:\\Users\\Vadim\\source\\repos\\DiplomaAI\\detections") + fileName;
+
+        //    //Read the File data into Byte Array.
+        //    byte[] bytes = System.IO.File.ReadAllBytes(fileName);
+
+        //    //Send the File to Download.
+        //    return File(bytes, "application/octet-stream", "download.jpg");
+        //}
     }
 }

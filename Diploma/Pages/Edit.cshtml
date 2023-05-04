@@ -78,9 +78,6 @@
                                 Добавить
                             </button>
                             <div id="UserListPartialView">
-                                @{
-                                    await Html.RenderPartialAsync("_UserListPartial", Model.UserList);
-                                }
                             </div>
                         </div>
                     </div>
@@ -100,6 +97,7 @@
             $('#CameraListPartialView').load('?handler=CameraListPartial');
             $('#AreaListPartialView').load('?handler=AreaListPartial');
             $('#PersonListPartialView').load('?handler=PersonListPartial');
+            $('#UserListPartialView').load('?handler=UserListPartial');
         });
     </script>
        

@@ -2,7 +2,27 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 $(document).ready(function () {
+    jDownload = (filePath) => {
+        console.log(filePath);
+        //var filePath = "C:\\Users\\Vadim\\source\\repos\\Diploma\\Diploma\\Files\\startup_config.json";
+        $.ajax({
+            url: '?handler=DownloadFile&filePath=' + encodeURIComponent(filePath),
+            type: 'GET',
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (data) {
+                var blob = new Blob([data]);
+                var url = URL.createObjectURL(blob);
+                var link = document.createElement('a');
+                link.href = url;
+                link.download = 'download.jpg';
+                link.click();
+            }
+        })
+    }
     jQueryModalGet = (url, title) => {
+        console.log(url);
         try {
             $.ajax({
                 type: 'GET',

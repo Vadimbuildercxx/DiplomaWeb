@@ -17,6 +17,7 @@ namespace Diploma.Controllers
         public string? Device { get; set; }
         public float[][]? Detections { get; set; }
         public string[]? ClassNames { get; set; }
+        public string? ImagePath{ get; set; }
 
         public string DetectedObjectName(int index)
         {
@@ -74,34 +75,42 @@ namespace Diploma.Controllers
             for (int i = 0; i < objectsList.Count; i++)
             {
                 int objCount = yamlConfiguration.Detections.Where(x => x[1] == objectsList[i]).Select(x => x[1]).ToList().Count;
+                string detObjName = yamlConfiguration.DetectedObjectName(objectsList[i]);
+                int ppeItemId = await GetIdByPPE(detObjName);
+                if (detObjName[..2] == "NO")
+                {
+                    if (maxDetCount < objCount)
+                    {
 
-                if (maxDetCount < objCount)
-                {
-                    Console.WriteLine(yamlConfiguration.Detections.Length + " " + i);
-                    message.AppendLine("Не ношение предмета [" + 
-                        yamlConfiguration.DetectedObjectName(objectsList[i]) + "]"
+                        Console.WriteLine(yamlConfiguration.Detections.Length + " " + i);
+
+                        message.AppendLine("Не ношение предмета [" + detObjName + "]"
                         + ", в количестве - " + objCount);
-                    await AddDataToLog(Models.Message.Alert, message.ToString(),
-                        DateTime.Now, camId);
-                    return Tuple.Create(message.ToString(), Models.Message.Alert);
+                        await AddDataToLog(Models.Message.Alert, message.ToString(),
+                            DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath);
+                        return Tuple.Create(message.ToString(), Models.Message.Alert);
+                    }
+
+                    else
+                    {
+                        message.AppendLine("Не ношение предмета [" + detObjName + "]"
+                            + ", в количестве - " + objCount);
+
+                    }
                 }
-                else
-                {
-                    message.AppendLine("Не ношение предмета [" + yamlConfiguration.DetectedObjectName(objectsList[i]) + "]"
-                        + ", в количестве - " + objCount);
-                    
-                }
-                
+                message.AppendLine("Предмет [" + detObjName + "]"
+                                    + ", в количестве - " + objCount);
+                await AddDataToLog(Models.Message.Alert, message.ToString(),
+                    DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath);
+
             }
 
-            await AddDataToLog(Models.Message.Warning, message.ToString(),
-                        DateTime.Now, camId);
 
             return Tuple.Create(message.ToString(), Models.Message.Warning);
         }
 
         public async Task AddDataToLog(Models.Message mType, string? text,
-            DateTime dt, int camId)
+            DateTime dt, int camId, int PPEid, string detectionPath)
         {
             using (var scope = _provider.CreateScope())
             {
@@ -111,7 +120,9 @@ namespace Diploma.Controllers
                     CameraId = camId,
                     DateTime = dt,
                     MessageType = mType,
-                    Text = text
+                    Text = text,
+                    PPEId = PPEid,
+                    DetectionPath = detectionPath,
                 };
                 Console.WriteLine(text);
                 await dbHandler.AddAsync(log);
@@ -130,6 +141,17 @@ namespace Diploma.Controllers
                 return name;
             }
             
+        }
+        public async Task<int> GetIdByPPE(string name)
+        {
+            using (var scope = _provider.CreateScope())
+            {
+                var dbHandler = scope.ServiceProvider.GetRequiredService<DBContext>();
+
+                int id = await dbHandler.PPEs.Where(x => x.Name == name).Select(x => x.Id).FirstOrDefaultAsync();
+                return id;
+            }
+
         }
 
         public int GetCamIdBySource(string source)

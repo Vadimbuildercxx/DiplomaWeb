@@ -101,7 +101,14 @@ body, html {
 .dataTables_wrapper select {
     color: red;
 }
+.td {
+    
+    text-align: center;
+}
 
+.table td {
+    text-align: center;
+}
 .card {
     backdrop-filter: blur(0.6rem);
     box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.5);

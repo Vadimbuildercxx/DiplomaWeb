@@ -103,6 +103,14 @@ namespace Diploma.Pages
             //PersonViewModel = new PersonViewModel();
         }
 
+        public PartialViewResult OnGetUserListPartial()
+        {
+            return new PartialViewResult
+            {
+                ViewName = "_UserListPartial",
+                ViewData = new ViewDataDictionary<List<IdentityUser>>(ViewData, UserList)
+            };
+        }
 
 
         #region AreaOperations
@@ -396,162 +404,6 @@ namespace Diploma.Pages
                 ViewData = new ViewDataDictionary<List<Person>>(ViewData, PersonList)
             };
         }
-        //public PartialViewResult OnGetPersonModalDeletePartial(int id)
-        //{
-        //    return new PartialViewResult
-        //    {
-        //        ViewName = "_PersonDeleteWarningPartial",
-        //        ViewData = new ViewDataDictionary<int>(ViewData, id)
-        //    };
-        //}
-
-        //public async Task OnPostPersonModalDeletePartial(int id)
-        //{
-        //    Person person = await _dbContext.Persons.Where(x => x.Id == id).FirstOrDefaultAsync();
-        //    if (person != null)
-        //    {
-        //        Console.WriteLine("Deleted id: " + id.ToString());
-        //        _dbContext.Persons.Remove(person);
-        //    }
-        //    await _dbContext.SaveChangesAsync();
-        //}
-
-
-        //public async Task<PartialViewResult> OnGetPersonModalEditPartial(int id)
-        //{
-        //    Person model = await _dbContext.Persons.Where(x => x.Id == id).FirstOrDefaultAsync();
-
-        //    return new PartialViewResult
-        //    {
-        //        ViewName = "_PersonModalPartial",
-        //        ViewData = new ViewDataDictionary<Person>(ViewData, model)
-        //    };
-        //}
-
-        //public PartialViewResult OnGetPersonModalPartial()
-        //{
-        //    Console.WriteLine("44444");
-        //    return new PartialViewResult
-        //    {
-        //        ViewName = "_PersonModalPartial",
-        //        ViewData = new ViewDataDictionary<Person>(ViewData, new Person { })
-        //    };
-        //}
-
-
-        //public async Task<PartialViewResult> OnPostPersonModalPartial(Person model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Console.WriteLine(model.Id);
-        //        if (model.Id != 0)
-        //        {
-        //            Person person = await _dbContext.Persons.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
-        //            if (person != null)
-        //            {
-        //                _dbContext.Persons.Remove(person);
-        //                await _dbContext.Persons.AddAsync(model);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            await _dbContext.Persons.AddAsync(model);
-        //        }
-
-        //        await _dbContext.SaveChangesAsync();
-        //    }
-
-        //    return new PartialViewResult
-        //    {
-        //        ViewName = "_PersonModalPartial",
-        //        ViewData = new ViewDataDictionary<Person>(ViewData, model)
-        //    };
-        //}
-
-        //public PartialViewResult OnGetPersonListPartial()
-        //{
-        //    return new PartialViewResult
-        //    {
-        //        ViewName = "_PersonListPartial",
-        //        ViewData = new ViewDataDictionary<List<Person>>(ViewData, PersonList)
-        //    };
-        //}
         #endregion
-        //public async Task<JsonResult> OnGetPersonList() => new JsonResult(PersonList);
-
-
-        //public async Task<JsonResult> OnPostEditPerson([FromBody] dynamic json)
-        //{
-
-        //    string jsonStr = Convert.ToString(json);
-        //    if (!string.IsNullOrEmpty(jsonStr))
-        //    {
-        //        JsonNode data = JsonNode.Parse(jsonStr);
-        //        int id = (int)data["id"];
-        //        Person person = _dbContext.Persons.Where(p => p.Id == id).Single();
-        //        _dbContext.Persons.Remove(person);
-        //        await _dbContext.SaveChangesAsync();
-        //    }
-
-        //    return new JsonResult(PersonList);
-        //}
-
-        //public async Task<JsonResult> OnPostDeletePerson([FromBody]dynamic json)
-        //{
-
-        //    string jsonStr = Convert.ToString(json);
-        //    if (!string.IsNullOrEmpty(jsonStr))
-        //    {
-        //        JsonNode data = JsonNode.Parse(jsonStr);
-        //        int id = (int)data["id"];
-        //        Person person = _dbContext.Persons.Where(p => p.Id == id).Single();
-        //        _dbContext.Persons.Remove(person);
-        //        await _dbContext.SaveChangesAsync();
-        //    }
-
-        //    return new JsonResult(PersonList);
-        //}
-
-        //public async Task<JsonResult> OnPostCreatePerson([FromBody]dynamic data)
-        //{
-        //    string jsonStr = Convert.ToString(data);
-
-        //    List<Element> json = JsonConvert.DeserializeObject<List<Element>>(jsonStr);
-
-        //    var rgx = new Regex("PersonViewModel\\.");
-        //    foreach (var element in json)
-        //    {
-        //        if (element.name != null) {
-        //            element.name = rgx.Replace(element.name, "", 1);
-        //        }
-        //    }
-
-        //    PersonViewModel viewModel = new PersonViewModel()
-        //    {
-        //        FirstName = json.Where(x=> x.name == "FirstName").Select(x=> x.value).FirstOrDefault(),
-        //        LastName = json.Where(x => x.name == "LastName").Select(x => x.value).FirstOrDefault(),
-        //        Patronymic = json.Where(x => x.name == "Patronymic").Select(x => x.value).FirstOrDefault(),
-        //        Email = json.Where(x => x.name == "Email").Select(x => x.value).FirstOrDefault(),
-        //        Age = int.Parse(json.Where(x => x.name == "Age").Select(x => x.value).FirstOrDefault()),
-        //        Phone = json.Where(x => x.name == "Phone").Select(x => x.value).FirstOrDefault(),
-        //        Gender = json.Where(x => x.name == "Gender").Select(x => x.value).FirstOrDefault(),
-        //    };
-
-        //    Person person = new Person();
-        //    //await _dbContext.Persons.AddAsync(person);
-        //    //await _dbContext.SaveChangesAsync();
-        //    return new JsonResult(PersonList);
-        //}
-
-        //public JsonResult OnGetPersonList()
-        //{
-        //    List<PersonViewModel> viewModels = _dbContext.Persons.Select(x => ConvertPersonToPersonViewModel(x)).ToList();
-        //    foreach (var item in viewModels)
-        //    {
-        //        Console.WriteLine(item.Info());
-        //    }
-        //    return new JsonResult(viewModels);
-        //}
-
     }
 }

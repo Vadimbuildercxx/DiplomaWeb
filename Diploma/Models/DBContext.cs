@@ -13,16 +13,19 @@ namespace Diploma.Models
         private DbSet<Log> _logs;
         private DbSet<Camera> _cameras;
         private DbSet<Area> _areas;
+        private DbSet<PPE> _PPEs;
 
         protected readonly IConfiguration Configuration;
 
         public DBContext(DbContextOptions<DBContext> options) : base(options)
         {
+            
         }
 
         public DbSet<Person> Persons { get => _persons; set => _persons = value; }
         public DbSet<Log> Logs { get => _logs; set => _logs = value; }
         public DbSet<Camera> Cameras { get => _cameras; set => _cameras = value; }
         public DbSet<Area> Areas { get => _areas; set => _areas = value; }
+        public DbSet<PPE> PPEs { get => _PPEs; set => _PPEs = value; }
     }
 }

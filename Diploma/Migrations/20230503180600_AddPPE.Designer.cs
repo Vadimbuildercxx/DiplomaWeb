@@ -3,6 +3,7 @@ using System;
 using Diploma.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230503180600_AddPPE")]
+    partial class AddPPE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +72,6 @@ namespace Diploma.Migrations
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("DetectionPath")
-                        .HasColumnType("longtext");
 
                     b.Property<int>("MessageType")
                         .HasColumnType("int");
