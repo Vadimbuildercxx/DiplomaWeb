@@ -28,6 +28,16 @@
       "provider": "cdnjs",
       "library": "Chart.js@4.3.0",
       "destination": "wwwroot/lib/Chart.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/lib/select2/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "select2-bootstrap-5-theme@1.3.0",
+      "destination": "wwwroot/lib/select2-bootstrap-5-theme/"
     }
   ]
 }

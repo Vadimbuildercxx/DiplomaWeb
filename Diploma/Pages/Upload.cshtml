@@ -2,27 +2,156 @@
 @model Diploma.Pages.UploadModel
 @{
 }
+@Html.AntiForgeryToken()
 <head>
     @*<link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
     <link rel="stylesheet" src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />*@
+    <link href="~/lib/select2-bootstrap-5-theme/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <!-- Or for RTL support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
+    <!-- Scripts -->
+    @*  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 </head>
+<body>
+    <div class="card d-flex" style="height: 75vh">
+        <div class="row h-100">
+            <div class="col-lg-4">
+                <select asp-items="Model.PersonsListSelect" class="js-select2 m-2 w-100" placeholder="Выберите работника" id="workerSelector">
+                    <option value=""></option>
+                </select>
+                <div class="row align-content-lg-center">
+                    <button id="submit" class="btn btn-primary m-2"> Загрузить</button>
+                    <button id="reset" class="btn btn-primary m-2"> Очистить</button>
+                </div>
+            </div>
+            <div class="col">
+                <form method="post" enctype="multipart/form-data"
+                      id="myAwesomeDropzone" class="dropzone needsclick dz-clickable dropzone-previews bg-black h-100">
 
-<canvas id="canvas2" width="100" height="100"></canvas>
-<script>
-    const ctx1 = document.getElementById("canvas2").getContext("2d");
-    ctx1.fillStyle = "#343635";
-    //Generates a black/white heightmap
-    for (let y = 0; y < 100; y++) {
-        for (let x = 0; x < 100; x++) {
-            let n = Noise2D(x*0.01 * 10, y*0.01* 10);
-            n += 1.0;
-            n *= 0.5;
-            let rgb = Math.round(255*n);
-            ctx1.fillStyle = "rgba("+rgb+","+rgb+","+rgb+",1.0)";
-            ctx1.fillRect(x, y, 1, 1);
+                    <div id="dropzone">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="dz-message needsclick">
+                            <button type="button" class="dz-button text-white-50">Перетащите файлы в данную область или нажмите.</button><br />
+                        </div>
+                        <span class="note needsclick">
+
+                        </span>
+                    </div>
+
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    @*<canvas id="canvas2" width="100" height="100"></canvas>*@
+    <script>
+        function myParamName() {
+            return "files";
         }
-    }
+
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: myParamName, // The name that will be used to transfer the file
+            url: "?handler=UploadFile",
+            autoProcessQueue: false,
+            maxFiles: 5,
+            maxFilesize: 100,
+            parallelUploads: 10,
+            uploadMultiple: true,
+            acceptedFiles: ".png,.jpg,.jpeg",
+            addRemoveLinks: true,
+            accept: function (file, done) {
+                if (file.name === "justinbieber.jpg") {
+                    done("Naha, you don't.");
+                }
+                else { done(); }
+            },
+            init: function () {
+                var submitButton = document.querySelector("#submit")
+                var resetButton = document.querySelector("#reset")
+                myDropzone = this; // closure
+
+                submitButton.addEventListener("click", function () {
+                    myDropzone.processQueue();
+                    // autoProcessQueue: true// Tell Dropzone to process all queued files.
+                });
+
+                resetButton.addEventListener("click", function () {
+                    myDropzone.removeAllFiles(true);
+                });
+
+                // You might want to show the submit button only when
+                // files are dropped here:
+                this.on("addedfile", function () {
+                    // Show submit button here and/or inform user to click it.
+                });
+
+
+                this.on("sending", function (file, response, formData) {
+                    formData["__RequestAntiForgeryToken"] = document.getElementsByName("__RequestVerificationToken").value;
+                    console.log(document.getElementById('workerSelector').value);
+                    formData.append('id', document.getElementById('workerSelector').value);
+                });
+                this.on("sendingmultiple", function (file, response, formData) {
+                    formData["__RequestAntiForgeryToken"] = document.getElementsByName("__RequestVerificationToken").value;
+                });
+                this.on("success", function (file, response) {
+                    file.serverID = response.id;
+
+                });
+                this.on("error", function (file, response) {
+                    var r = response;
+                    console.log("Drop Err:");
+                    console.log(r);
+                });
+            }
+        };
+    </script>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('.js-select2').select2({
+            theme: "bootstrap-5",
+            placeholder: "Выберите работника",
+            maximumSelectionLength: 2,
+            language: "ru"
+        });
+
+        
+
+        //Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
+        //    paramName: "file", // The name that will be used to transfer the file
+        //    maxFilesize: 2, // MB
+        //    accept: function (file, done) {
+        //        if (file.name == "justinbieber.jpg") {
+        //            done("Naha, you don't.");
+        //        }
+        //        else { done(); }
+        //    }
+        //};
+    });
+    //const ctx1 = document.getElementById("canvas2").getContext("2d");
+    //ctx1.fillStyle = "#343635";
+    ////Generates a black/white heightmap
+    //for (let y = 0; y < 100; y++) {
+    //    for (let x = 0; x < 100; x++) {
+    //        let n = Noise2D(x*0.01 * 10, y*0.01* 10);
+    //        n += 1.0;
+    //        n *= 0.5;
+    //        let rgb = Math.round(255*n);
+    //        ctx1.fillStyle = "rgba("+rgb+","+rgb+","+rgb+",1.0)";
+    //        ctx1.fillRect(x, y, 1, 1);
+    //    }
+    //}
 
     //Generates a color heightmap with fractal brownian motion
     //for (let y = 0; y < 100; y++) {

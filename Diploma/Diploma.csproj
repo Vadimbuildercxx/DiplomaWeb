@@ -16,6 +16,7 @@
     <None Include="wwwroot\images\sphere.png" />
     <None Include="wwwroot\images\code_vector.png" />
     <None Include="wwwroot\images\space_ring.jpg" />
+    <None Include="wwwroot\person_faces\representations_vgg_face.pkl" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +41,11 @@
     <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
     <PackageReference Include="toastr" Version="2.1.1" />
     <PackageReference Include="YamlDotNet" Version="13.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\person_faces\person_119\" />
+    <Folder Include="wwwroot\person_faces\person_122\" />
   </ItemGroup>
 
 </Project>

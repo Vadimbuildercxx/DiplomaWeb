@@ -210,6 +210,8 @@ namespace Diploma.Pages
 
         #region CameraOperations
 
+
+
         public PartialViewResult OnGetCameraDelete(int id)
         {
             return new PartialViewResult
@@ -306,6 +308,26 @@ namespace Diploma.Pages
 
 
         #region PersonOperations
+
+        public async Task<PartialViewResult> OnGetPersonInfo(int id)
+        {
+            Person person = await _dbContext.Persons.Where(x => x.Id == id).FirstOrDefaultAsync();
+            PersonDTO personDTO = new PersonDTO()
+            {
+                FullName = person.LastName + " " + person.FirstName[0] + ". " + person.Patronymic[0] + ".",
+                Email = person.Email,
+                Age = person.Age,
+                Gender = person.Gender,
+                Phone = person.Phone,
+                Paths = _dbContext.PersonsXPaths.Where(x=>x.PersonId ==  id).Select(x=>x.Path).ToList(),
+
+            };
+            return new PartialViewResult
+            {
+                ViewName = "_PersonInfoModalPartial",
+                ViewData = new ViewDataDictionary<PersonDTO>(ViewData, personDTO)
+            };
+        }
 
         public PartialViewResult OnGetPersonDelete(int id)
         {

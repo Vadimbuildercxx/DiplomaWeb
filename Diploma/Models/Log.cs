@@ -1,4 +1,5 @@
 ﻿using Diploma.Models;
+using System.Drawing.Printing;
 
 namespace Diploma.Models
 {
@@ -19,5 +20,6 @@ namespace Diploma.Models
         public int? CameraId { get; set; }
         public int? PPEId { get; set; }
         public string? DetectionPath { get; set;}
+        public int? ObjCount { get; set; }
     }
 }

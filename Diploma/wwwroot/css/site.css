@@ -25,6 +25,49 @@ body, html {
     color: white;
 }
 
+/*Dropzone js theme*/
+.dropzone .dz-preview.dz-image-preview {
+    background: black;
+}
+.dz-preview{
+    background-color: black!important;
+}
+.dz-progress {
+    background-color: rgba(255,255,255,0.5) !important;
+}
+.dz-remove{
+    color: white!important;
+}
+/* select 2 dark theme*/
+.select2-selection__placeholder {
+    color: white !important;
+}
+.select2-selection__rendered {
+    color: white !important;
+    
+}
+.select2-selection {
+    background-color: rgba(0,0,0,255.5) !important;
+    color: white !important;
+    border-width: 0px;
+}
+.select2-dropdown {
+    background-color: rgba(0,0,0,0.5) !important;
+    color: white !important;
+
+}
+.select2-results__option--highlighted {
+    background-color: rgba(255,255,255,0.5) !important;
+    color: white !important;
+}
+.select2-results__option--selected {
+    background-color: rgba(255,255,255,0.5) !important;
+}
+.select2-search__field {
+    background-color: rgba(0,0,0,0.5) !important;
+    color: white !important;
+}
+
 ::-webkit-scrollbar {
     width: 1vh;
     background-color: transparent;
@@ -48,6 +91,7 @@ body, html {
 .nav-link.active {
     color: white !important;
     text-shadow: 0px 0px 16px rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.05) !important;
 }
 .nav-link{
     color: grey!important;
@@ -102,13 +146,27 @@ body, html {
     color: red;
 }
 .td {
-    
+    display: inline-flex !important;
     text-align: center;
 }
 
 .table td {
-    text-align: center;
+    text-align: center !important;
+
 }
+
+.table {
+    justify-content: center !important;
+}
+
+th.dt-center, td.dt-center {
+    text-align: center !important;
+}
+
+.p-column-header-content {
+    display: inline-flex !important;
+}
+
 .card {
     backdrop-filter: blur(0.6rem);
     box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.5);
@@ -123,6 +181,7 @@ body, html {
 .btn-primary {
     /*background: linear-gradient(90deg, rgba(205,0,8,1) 0%, rgba(226,142,74,1) 100%);*/
     background: linear-gradient(90deg, rgba(58,0,205,1) 0%, rgba(158,74,226,1) 100%);
+    border-width: 0px;
 }
 
 .circle {

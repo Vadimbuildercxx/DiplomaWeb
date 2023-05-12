@@ -2,20 +2,20 @@
 
 @model List<Person>
 
-<table id="PersonGridPartialView" class="GridPartialView">
+<table id="PersonGridPartialView" class="table table-borderless GridPartialView">
     <thead>
         <tr>
             <th> 
-                <p class="text-white">Имя</p>
+                <p class="text-white text-center">Имя</p>
             </th>
             <th> 
-                <p class="text-white">Фамилия</p>
+                <p class="text-white text-center">Фамилия</p>
             </th>
             <th> 
-                <p class="text-white">Email</p>
+                <p class="text-white text-center">Email</p>
             </th>
             <th>
-                <p class="text-white">Действия</p>
+                <p class="text-white text-center">Действия</p>
             </th>
         </tr>
     </thead>
@@ -34,9 +34,15 @@
                         Редактировать
                     </button>*@
 
-                    <a onclick="jQueryModalGet('?handler=PersonCreateOrEdit&id=@person.Id','Редактировать')" class="btn btn-info text-white"> Редактировать</a>
-                    <a onclick="jQueryModalGet('?handler=PersonDelete&id=@person.Id','Удалить')" class="btn btn-danger text-white"> Удалить</a>
-
+                    <a onclick="jQueryModalGet('?handler=PersonCreateOrEdit&id=@person.Id','Редактировать')" class="btn btn-outline-light">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a onclick="jQueryModalGet('?handler=PersonDelete&id=@person.Id','Удалить')" class="btn btn-outline-light"> 
+                        <i class="bi bi-x-lg"></i>
+                    </a>
+                    <a onclick="jQueryModalGet('?handler=PersonInfo&id=@person.Id','Информация')" class="btn btn-outline-light">
+                        <i class="bi bi-three-dots"></i>
+                    </a>
                 </td>
             </tr>
         }

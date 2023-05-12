@@ -62,21 +62,30 @@
                 </div>
             </div>
             <fieldset class="row mb-3">
-                <legend class="col-form-label col-sm-2 pt-0 text-white">Пол</legend>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input asp-for="Gender" class=" form-check-input" type="radio" id="gridRadios1" value="Male" checked>
-                        <label class="form-check-label text-white" for="gridRadios1">
-                            Мужской
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input asp-for="Gender" class="form-check-input" type="radio" id="gridRadios2" value="Female">
-                        <label class="form-check-label text-white" for="gridRadios2">
-                            Женский
-                        </label>
+                <div class="col-lg-6">
+                    <legend class="col-form-label col-sm-2 pt-0 text-white">Пол</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input asp-for="Gender" class=" form-check-input" type="radio" id="gridRadios1" value="Male" checked>
+                            <label class="form-check-label text-white" for="gridRadios1">
+                                Мужской
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="Gender" class="form-check-input" type="radio" id="gridRadios2" value="Female">
+                            <label class="form-check-label text-white" for="gridRadios2">
+                                Женский
+                            </label>
+                        </div>
                     </div>
                 </div>
+                @*<div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        @*<input asp-for="FaceImagesPaths" type="" class="form-control" placeholder="/path">
+                        <label asp-for="FaceImagesPaths" for="floatingInput"></label>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                </div>*@
             </fieldset>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary save-button">Сохранить</button>

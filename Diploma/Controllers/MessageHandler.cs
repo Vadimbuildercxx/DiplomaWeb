@@ -87,7 +87,7 @@ namespace Diploma.Controllers
                         message.AppendLine("Не ношение предмета [" + detObjName + "]"
                         + ", в количестве - " + objCount);
                         await AddDataToLog(Models.Message.Alert, message.ToString(),
-                            DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath);
+                            DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath, objCount);
                         return Tuple.Create(message.ToString(), Models.Message.Alert);
                     }
 
@@ -101,7 +101,7 @@ namespace Diploma.Controllers
                 message.AppendLine("Предмет [" + detObjName + "]"
                                     + ", в количестве - " + objCount);
                 await AddDataToLog(Models.Message.Alert, message.ToString(),
-                    DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath);
+                    DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath, objCount);
 
             }
 
@@ -110,7 +110,7 @@ namespace Diploma.Controllers
         }
 
         public async Task AddDataToLog(Models.Message mType, string? text,
-            DateTime dt, int camId, int PPEid, string detectionPath)
+            DateTime dt, int camId, int PPEid, string detectionPath, int objCount)
         {
             using (var scope = _provider.CreateScope())
             {
@@ -123,8 +123,8 @@ namespace Diploma.Controllers
                     Text = text,
                     PPEId = PPEid,
                     DetectionPath = detectionPath,
+                    ObjCount = objCount,
                 };
-                Console.WriteLine(text);
                 await dbHandler.AddAsync(log);
                 await dbHandler.SaveChangesAsync();
             }

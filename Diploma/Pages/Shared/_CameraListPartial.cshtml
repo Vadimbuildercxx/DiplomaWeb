@@ -1,12 +1,10 @@
-﻿@using Diploma.Models;
-@using Diploma.ViewModels;
+﻿@using Diploma.ViewModels;
 
 @model List<CameraDTO>
 
-@*<div style=" overflow-x: hidden; ">*@
 <table id="GridPartialView" class="table table-borderless GridPartialView">
     <thead>
-        <tr>
+        <tr style="justify-content: center">
             <th>
                 <p class="text-white text-center">Имя</p>
             </th>
@@ -29,18 +27,12 @@
                 <td><p class="text-white">@cam.AreaName</p></td>
                 <td><p class="text-white">@cam.Description</p></td>
                 <td>
-                    @*<button type="button" class="btn btn-outline-danger" data-toggle="ajax-modal-delete-person" data-id="@cam.Id" data-url="@Url.Page("Edit", "CameraModalDeletePartial")">
-                Удалить
-                </button>
-                <button type="button" class="btn btn-outline-danger" data-toggle="ajax-modal-edit-person" data-id="@cam.Id" data-url="@Url.Page("Edit", "CameraModalEditPartial")">
-                Редактировать
-                </button>*@
-
-                    <a onclick="jQueryModalGet('?handler=CameraCreateOrEdit&id=@cam.Id','Редактировать')" class="btn btn-info text-white "> Редактировать</a>
-                    <a onclick="jQueryModalGet('?handler=CameraDelete&id=@cam.Id','Удалить')" class="btn btn-danger text-white"> Удалить</a>
-                    @*<form method="post" asp-page="Index" asp-route-id="@cam.Id" asp-page-handler="Delete" onsubmit="return jQueryModalDelete(this)" class="d-inline">
-                <button type="submit" class="btn btn-danger text-white"> Delete</button>
-                </form>*@
+                    <a onclick="jQueryModalGet('?handler=CameraCreateOrEdit&id=@cam.Id','Редактировать')" class="btn btn-outline-light">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a onclick="jQueryModalGet('?handler=CameraDelete&id=@cam.Id','Удалить')" class="btn btn-outline-light">
+                        <i class="bi bi-x-lg"></i>
+                    </a>
                 </td>
             </tr>
         }

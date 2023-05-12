@@ -112,6 +112,10 @@
         </div>
     </div>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
     <div class="container body-content ">
         @RenderBody()
         <h>@ViewData["Message"]</h>
@@ -121,9 +125,7 @@
         </footer>*@
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    
 
     <script src="https://unpkg.com/bs5-toast/dist/bs5-toast.js"></script>
     <script src="js/signalr/dist/browser/signalr.min.js"></script>
@@ -134,7 +136,7 @@
 
         // получение сообщения от сервера
         hubConnection.on('Notify', function (message, color) {
-            //console.log(message);
+            console.log(message, color);
             if (color == "red"){
                 console.log("color" + color)
                 var toast = new bs5.Toast({
@@ -149,7 +151,7 @@
                 });
                 toast.show();
             }
-            else if (color == "blue") {
+            else if (color == "yellow") {
                 console.log("color" + color)
                 var toast = new bs5.Toast({
                     body: `<div class="toast-header bg-info">

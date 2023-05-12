@@ -77,6 +77,9 @@ namespace Diploma.Migrations
                     b.Property<int>("MessageType")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ObjCount")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PPEId")
                         .HasColumnType("int");
 
@@ -123,6 +126,24 @@ namespace Diploma.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Persons");
+                });
+
+            modelBuilder.Entity("Diploma.Models.PersonsXPaths", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PersonsXPaths");
                 });
 
             modelBuilder.Entity("Diploma.Models.PPE", b =>

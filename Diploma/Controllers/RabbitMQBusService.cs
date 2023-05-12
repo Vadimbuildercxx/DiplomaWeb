@@ -62,10 +62,12 @@ namespace Diploma.Controllers
                 Tuple<string, Message> message = await _messageHandler.CreateMessage(content);
                 if (message.Item2 == Message.Warning) 
                 {
+                    Console.WriteLine("---------------");
                     SendMessage(message.Item1, Colors.yellow);
                 }
                 else if (message.Item2 == Message.Alert)
                 {
+                    Console.WriteLine("+++++++++++++++");
                     SendMessage(message.Item1, Colors.red);
                 }
 

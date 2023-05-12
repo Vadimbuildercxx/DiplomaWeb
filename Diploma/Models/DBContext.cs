@@ -14,6 +14,7 @@ namespace Diploma.Models
         private DbSet<Camera> _cameras;
         private DbSet<Area> _areas;
         private DbSet<PPE> _PPEs;
+        private DbSet<PersonsXPaths> _PersonsXPaths;
 
         protected readonly IConfiguration Configuration;
 
@@ -27,5 +28,7 @@ namespace Diploma.Models
         public DbSet<Camera> Cameras { get => _cameras; set => _cameras = value; }
         public DbSet<Area> Areas { get => _areas; set => _areas = value; }
         public DbSet<PPE> PPEs { get => _PPEs; set => _PPEs = value; }
+        public DbSet<PersonsXPaths> PersonsXPaths { get => _PersonsXPaths; set => _PersonsXPaths = value; }
+
     }
 }

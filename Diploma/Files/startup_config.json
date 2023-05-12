@@ -1,15 +1,18 @@
 {
 
-	"Weights": "saved_weights\\720x720.pt",
+	"Weights": "saved_weights\\best (1).pt",
+	"PersonsFacesPath": "C:\\Users\\Vadim\\source\\repos\\Diploma\\Diploma\\wwwroot\\person_faces\\",
 	"IsDetectFaces": true,
-	"ImageSize": 1280,
+	"ImageSize": 736,
 	"Stride": 32,
-	"SendEveryXsec": 2,
+	"SendEveryXsec": 0.1,
 	"Cameras": [
-		2
+		1
+
 	],
 	"Sources": [
 		"C:\\Users\\Vadim\\Videos\\TestVideos\\BB_dde3fde4-9086-4d2f-93c1-583b21d22d10_preview.mp4"
+
 	]
 
 }
