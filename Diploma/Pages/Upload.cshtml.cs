@@ -41,9 +41,11 @@ namespace Diploma.Pages
             if (id != 0)
             {
                 string dirPath = Path.Combine(_path, "person_" + id.ToString());
+                Console.WriteLine($"{dirPath}");
                 if (!Directory.Exists(dirPath))
                 {
-                    Directory.CreateDirectory(dirPath);
+                    Console.WriteLine($"{dirPath}");
+                    Directory.CreateDirectory(Path.Combine(_wwwroot, dirPath));
                 }
 
                 foreach (var file in files)
@@ -59,15 +61,6 @@ namespace Diploma.Pages
                     });
                     await _dbContext.SaveChangesAsync();
 
-                    //person.FaceImagesPaths ??= new List<string>();
-                    //person.FaceImagesPaths.Add(dirPath);
-
-                    //await _dbContext.SaveChangesAsync();
-
-                    //foreach (var item in _dbContext.Persons.Where(x=>x.Id == id).First().FaceImagesPaths)
-                    //{
-                    //    Console.WriteLine("-----" + item);
-                    //}
                 }
             }
             

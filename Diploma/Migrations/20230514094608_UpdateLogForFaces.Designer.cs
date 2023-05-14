@@ -3,6 +3,7 @@ using System;
 using Diploma.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230514094608_UpdateLogForFaces")]
+    partial class UpdateLogForFaces
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,8 +85,8 @@ namespace Diploma.Migrations
                     b.Property<int?>("PPEId")
                         .HasColumnType("int");
 
-                    b.Property<float?>("PersonConf")
-                        .HasColumnType("float");
+                    b.Property<int?>("PersonConf")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");

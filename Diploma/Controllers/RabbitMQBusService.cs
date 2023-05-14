@@ -59,17 +59,21 @@ namespace Diploma.Controllers
                 // Обрабатываем полученное сообщение
                 
                 //Debug.WriteLine($"Получено сообщение: {content}");
-                Tuple<string, Message> message = await _messageHandler.CreateMessage(content);
-                if (message.Item2 == Message.Warning) 
+                Tuple<string, Message>? message = await _messageHandler.CreateMessage(content);
+                if (message != null)
                 {
-                    Console.WriteLine("---------------");
-                    SendMessage(message.Item1, Colors.yellow);
+                    if (message.Item2 == Message.Warning)
+                    {
+                        Console.WriteLine("---------------");
+                        SendMessage(message.Item1, Colors.yellow);
+                    }
+                    else if (message.Item2 == Message.Alert)
+                    {
+                        Console.WriteLine("+++++++++++++++");
+                        SendMessage(message.Item1, Colors.red);
+                    }
                 }
-                else if (message.Item2 == Message.Alert)
-                {
-                    Console.WriteLine("+++++++++++++++");
-                    SendMessage(message.Item1, Colors.red);
-                }
+                
 
                 //Console.WriteLine($"Получено сообщение: {content}");
 

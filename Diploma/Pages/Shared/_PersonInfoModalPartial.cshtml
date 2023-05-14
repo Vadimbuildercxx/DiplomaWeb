@@ -16,6 +16,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-floating mb-3">
+                    <input asp-for="Email" type="email" class="form-control" placeholder=" " readonly />
                     <label asp-for="Email" for="floatingInput"></label>
                 </div>
             </div>
@@ -26,24 +27,70 @@
                 @*<div class="form-floating mb-3">
                    <label asp-for="LastName" for="floatingInput"></label>
                 </div>*@
-                @{
-                    if (Model.Paths!=null)
-                    {
-                        foreach (string path in Model.Paths)
-                        {
-                            Console.WriteLine(path);
-                            <img src="@path" alt="Image" />
-                        }
-                    }
-                }
+                <div class="row-cols-2" >
+                    <div class="container w-100 h-100">
+                        <div class="row">
+                            <div class="col">
+                                @if (Model.Paths != null && Model.Paths.Count > 0)
+                                {
+                                    <img src="@Model.Paths[0]" alt="Image" class="img-thumbnail"/>
+                                }
+                            </div>
+                            <div class="col">
+                                @if (Model.Paths != null && Model.Paths.Count > 1)
+                                {
+                                    <img src="@Model.Paths[1]" alt="Image" class="img-thumbnail" />
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                @if (Model.Paths != null && Model.Paths.Count > 2)
+                                {
+                                    <img src="@Model.Paths[2]" alt="Image" class="img-thumbnail" />
+                                }
+                           </div>
+                            <div class="col">
+                                @if (Model.Paths != null && Model.Paths.Count > 3)
+                                {
+                                    <img src="@Model.Paths[3]" alt="Image" class="img-thumbnail" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 
 
                 
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 ">
                 <div class="form-floating mb-3">
+                    <input asp-for="Phone" type="number" class="form-control" placeholder=" " readonly />
                     <label asp-for="Phone" for="floatingInput"></label>
                 </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Age" type="number" class="form-control" placeholder=" " readonly>
+                    <label asp-for="Age" for="floatingInput"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Gender" class="form-control" placeholder=" " readonly>
+                    <label asp-for="Gender" for="floatingInput"></label>
+                </div>
+
+               @* <legend class="col-form-label col-sm-2 pt-0 text-white">Пол</legend>
+                <div class="form-check">
+                    <input asp-for="Gender" class=" form-check-input" type="radio" id="gridRadios1" value="Male" readonly>
+                    <label class="form-check-label text-white" for="gridRadios1">
+                        Мужской
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Gender" class="form-check-input" type="radio" id="gridRadios2" value="Female" readonly>
+                    <label class="form-check-label text-white" for="gridRadios2">
+                        Женский
+                    </label>
+                </div>*@
             </div>
         </div>
 
@@ -53,18 +100,10 @@
                     @*<label asp-for="Patronymic" for="floatingInput">@Model.Patronymic</label>*@
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                    <label asp-for="Age" for="floatingInput"></label>
-                </div>
-            </div>
         </div>
         <div class="row mb-3">
             <div class="col-lg-6">
-                <legend class="col-form-label col-sm-2 pt-0 text-white">Пол</legend>
-                <div class="col-sm-10">
-                    <label asp-for="Gender" class="form-check-input" type="" id="gridRadios1" value="Male" checked></label>
-                </div>
+                
             </div>
             <div class="col-lg-6">
                 <div class="form-floating mb-3">

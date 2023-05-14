@@ -20,6 +20,8 @@ namespace Diploma.Pages
         public int? ObjectId { get; set; }
         public string ObjectName { get; set; } = string.Empty;
         public string DetectionPath { get; set; } = string.Empty;
+        public int? PersonId { get; set; }
+        public float? PersonConf { get; set; }
     }
 
     public class LogsModel : PageModel
@@ -39,7 +41,7 @@ namespace Diploma.Pages
         public PartialViewResult OnGetLogListPartial()
         {
             List<LogDTO> logDTOs = new();
-            List<Log> logs = _dbContext.Logs.ToList();
+            var logs = _dbContext.Logs.ToList();
             foreach (var log in logs) 
             {
                 logDTOs.Add(new LogDTO
@@ -53,6 +55,8 @@ namespace Diploma.Pages
                     ObjectId = log.PPEId,
                     ObjectName = _dbContext.PPEs.Where(x => x.Id == log.PPEId).Select(x => x.Name).FirstOrDefault(),
                     DetectionPath = log.DetectionPath,
+                    PersonId = log.PersonId,
+                    PersonConf = log.PersonConf,
                 });
             }
 

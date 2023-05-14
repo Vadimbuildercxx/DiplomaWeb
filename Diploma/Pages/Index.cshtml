@@ -28,13 +28,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <script src="~/js/notify.js"></script>
 
+    
 </head>
 
 
 
 <body style="font-family: 'Montserrat', sans-serif;">
-
     <div class="wrapper">
         <div class="container text-center">
             <div class="d-block" style="height: 50vh">
@@ -81,8 +82,16 @@
         <input type="text" name="product" />
         <input type="submit" asp-page-handler="Create" value="Отправить" />
     </form>*@
-
-
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/f3oall/awesome-notifications/master/dist/style.css">
+    <script src="https://raw.githubusercontent.com/f3oall/awesome-notifications/master/dist/index.var.js"></script>
+    <script>
+        $(document).ready(function () {
+            function test(){
+                $.notify("Hello World");
+            }
+            
+        });
+    </script>
 </body>
 </html>
 

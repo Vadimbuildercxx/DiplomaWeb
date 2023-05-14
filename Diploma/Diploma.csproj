@@ -44,6 +44,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\lib\bs5-toast\dist\" />
+    <Folder Include="wwwroot\lib\bs5-toast\src\" />
     <Folder Include="wwwroot\person_faces\person_119\" />
     <Folder Include="wwwroot\person_faces\person_122\" />
   </ItemGroup>
