@@ -314,7 +314,8 @@ namespace Diploma.Pages
             Person person = await _dbContext.Persons.Where(x => x.Id == id).FirstOrDefaultAsync();
             PersonDTO personDTO = new PersonDTO()
             {
-                FullName = person.LastName + " " + person.FirstName[0] + ". " + person.Patronymic[0] + ".",
+                FullName = person.LastName + " " + person.FirstName[0] + ". " + 
+                           (person.Patronymic == null? "": person.Patronymic[0] + "."),
                 Email = person.Email,
                 Age = person.Age,
                 Gender = person.Gender,

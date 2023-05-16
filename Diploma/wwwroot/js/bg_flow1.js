@@ -85,9 +85,9 @@ class Effect {
 		this.debug = false;
 		this.init();
 
-		window.addEventListener("keydown", e => {
-			if (e.key === 'd') this.debug = !this.debug;
-		})
+		//window.addEventListener("keydown", e => {
+		//	if (e.key === 'd') this.debug = !this.debug;
+		//})
 
 		window.addEventListener("resize", e => {
 			console.log(e.target.innerWidth, e.target.innerHeight);

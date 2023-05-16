@@ -25,11 +25,12 @@ body, html {
     color: white;
 }
 
+
 .img-thumbnail {
     background: linear-gradient(90deg, rgba(58,0,205,1) 0%, rgba(158,74,226,1) 100%);
     border-color: black !important;
-    width: 100%!important;
-    height: 100%!important;
+    width: 100% !important;
+    height: 100% !important;
 }
 .toastify {
     backdrop-filter: blur(0.6rem) !important;

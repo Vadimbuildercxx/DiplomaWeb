@@ -17,10 +17,10 @@ namespace Diploma.Pages
         public DateTime DateTime { get; set; }
         public int? CameraId { get; set; }
         public string CameraName { get; set; } = string.Empty;
-        public int? ObjectId { get; set; }
-        public string ObjectName { get; set; } = string.Empty;
+        public string? PPEitem { get; set; } = string.Empty;
+        //public string ObjectName { get; set; }
         public string DetectionPath { get; set; } = string.Empty;
-        public int? PersonId { get; set; }
+        public string? PersonName { get; set; }
         public float? PersonConf { get; set; }
     }
 
@@ -44,6 +44,7 @@ namespace Diploma.Pages
             var logs = _dbContext.Logs.ToList();
             foreach (var log in logs) 
             {
+                
                 logDTOs.Add(new LogDTO
                 {
                     Id = log.Id,
@@ -52,10 +53,11 @@ namespace Diploma.Pages
                     DateTime = log.DateTime,
                     CameraId = log.CameraId,
                     CameraName = _dbContext.Cameras.Where(x=> x.Id == log.CameraId).Select(x=>x.Name).FirstOrDefault(),
-                    ObjectId = log.PPEId,
-                    ObjectName = _dbContext.PPEs.Where(x => x.Id == log.PPEId).Select(x => x.Name).FirstOrDefault(),
+                    PPEitem = log.PPEitem,
                     DetectionPath = log.DetectionPath,
-                    PersonId = log.PersonId,
+                    PersonName = _dbContext.Persons.Where(x => x.Id == log.PersonId).Select(
+                        x => x.LastName + " " + x.FirstName[0] + ". " + (x.Patronymic == null? "": x.Patronymic[0])
+                        ).FirstOrDefault(),
                     PersonConf = log.PersonConf,
                 });
             }

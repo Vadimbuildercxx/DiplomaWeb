@@ -4,13 +4,13 @@
 	"PersonsFacesPath": "C:\\Users\\Vadim\\source\\repos\\Diploma\\Diploma\\wwwroot\\person_faces\\",
 	"DetectionPaths": "C:\\Users\\Vadim\\source\\repos\\DiplomaAI\\detections",
 	"IsDetectFaces": true,
-	"ImageSize": 1280,
+	"ImageSize": 640,
 	"Stride": 32,
 	"SendEveryXsec": 0.1,
-	"Cameras": [ 2 ],
+	"Cameras": [ 1 ],
 	"Sources": [
 		"C:\\Users\\Vadim\\Videos\\TestVideos\\istockphoto-1470367700-640_adpp_is.mp4"
 	],
-	"FaceClass":  "head"
+	"FaceClass": "head"
 
 }

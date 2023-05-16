@@ -100,18 +100,25 @@ namespace Diploma.Controllers
             foreach (int valId in validIds)
             {
                 int objIndex =      (int)yamlConfiguration.Detections[valId][1];
-                float objConf =     (int)yamlConfiguration.Detections[valId][0];
+                float objConf =     yamlConfiguration.Detections[valId][0];
                 string detObjName = yamlConfiguration.ClassNames[objIndex];
                 int ppeItemId =     await GetIdByPPE(detObjName);
 
                 if (_faceClass == detObjName)
                 {
-                    int personId = Int32.Parse(yamlConfiguration.Persons[valId].Replace("person_", ""));
-                    string name = await GetFullNameById(personId);
-                    message.AppendLine("Не ношение СИЗ"
-                        + ", работником - " + name + " ");
-                    await AddDataToLog(Models.Message.Warning, message.ToString(),
-                        DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath, 1, personId, objConf);
+                    //int personId;
+                    bool result = int.TryParse(yamlConfiguration.Persons[valId].Replace("person_", ""), out int personId);
+                    if (result)
+                    {
+                        string name = await GetFullNameById(personId);
+                        string text = "Не ношение СИЗ"
+                        + ", работником - " + name + " ";
+
+                        message.AppendLine(text);
+                        await AddDataToLog(Models.Message.Warning, text,
+                            DateTime.Now, camId, detObjName, yamlConfiguration.ImagePath, 1, personId, objConf);
+
+                    }
                 }
             }
             //List<string> uniqueObject = yamlConfiguration.Detections.Where(
@@ -119,23 +126,26 @@ namespace Diploma.Controllers
             //    yamlConfiguration.DetectedObjectName((int)x[1]) != _faceClass).Select(x => yamlConfiguration.DetectedObjectName((int)x[1])).ToList();
 
             List<string> uniqueObject = yamlConfiguration.ClassNames.Where(x => x != _faceClass).ToList();
-
+            
 
             foreach (var item in uniqueObject)
             {
                 int ppeItemId = await GetIdByPPE(item);
                 int count = yamlConfiguration.Detections.Where(x => yamlConfiguration.ClassNames[(int)x[1]] == item).ToList().Count;
-                message.AppendLine("Обнаржен предмет [" + item + "]"
-                    + ", в количестве - " + count+ " ");
-                await AddDataToLog(Models.Message.Info, message.ToString(),
-                    DateTime.Now, camId, ppeItemId, yamlConfiguration.ImagePath, 1, 0, 0);
+
+                string text = "Обнаржен предмет [" + item + "]"
+                    + ", в количестве: " + count + " ";
+
+                message.AppendLine(text);
+                await AddDataToLog(Models.Message.Info, text,
+                    DateTime.Now, camId, item, yamlConfiguration.ImagePath, count, 0, 0);
             }
 
             return Tuple.Create(message.ToString(), Models.Message.Warning);
         }
 
         public async Task AddDataToLog(Models.Message mType, string? text,
-            DateTime dt, int camId, int PPEid, string detectionPath, int objCount, int personId, float faceConf)
+            DateTime dt, int camId, string PPEitem, string detectionPath, int objCount, int personId, float faceConf)
         {
             using (var scope = _provider.CreateScope())
             {
@@ -146,7 +156,7 @@ namespace Diploma.Controllers
                     DateTime = dt,
                     MessageType = mType,
                     Text = text,
-                    PPEId = PPEid,
+                    PPEitem = PPEitem,
                     DetectionPath = detectionPath,
                     ObjCount = objCount,
                     PersonId = personId,

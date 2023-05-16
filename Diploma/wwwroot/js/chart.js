@@ -1,80 +1,181 @@
 ﻿
-//var myChart = new Chart(document.getElementById("bar-chart"), {
-//    type: 'bar',
-//    data: {
-//        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-//        datasets: [
-//            {
-//                label: "Population (millions)",
-//                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-//                data: [2478, 5267, 734, 784, 433]
-//            }
-//        ]
-//    },
-//    options: {
-//        responsive: false,
-//        legend: { display: false },
-//        title: {
-//            display: true,
-//            text: 'Predicted world population (millions) in 2050'
-//        }
-//    }
-//});
+
 
 
 
 
 $(document).ready(function () {
-	var doughnutChart = new Chart(document.getElementById("doughnut-chart"), {
-		type: 'doughnut',
-		data: {
-			labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-			datasets: [
-				{
-					label: 'Dataset 1',
-					data: [133,123,43,312,312],
-					backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-				}
-			]
-		},
-		options: {
-			responsive: true,
-			plugins: {
-				legend: {
-					position: 'left',
+	
+
+
+	var doughnutChart; 
+
+	$.ajax({
+		type: 'GET',
+		url: "?handler=ImagesCountCount",
+		contentType: false,
+		processData: false,
+		success: function (res) {
+			doughnutChart = new Chart(document.getElementById("doughnut-chart"), {
+				type: 'doughnut',
+				data: {
+					labels: res.labels,
+					datasets: [
+						{
+							label: 'Dataset 1',
+							data: res.data,
+						}
+					]
 				},
-				title: {
-					display: true,
-					text: 'Chart.js Doughnut Chart'
-				}
-			}
-		},
-	});
-	var pieChart = new Chart(document.getElementById("pie-chart"), {
-		type: 'pie',
-		data: {
-			labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-			datasets: [
-				{
-					label: 'Dataset 1',
-					data: [2478, 5267, 734, 784, 433],
-					backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-				}
-			]
-		},
-		options: {
-			responsive: true,
-			plugins: {
-				legend: {
-					position: 'left',
+				options: {
+					responsive: true,
+					plugins: {
+						legend: {
+							display: false,
+							position: 'left',
+						},
+						title: {
+							display: true,
+							text: 'Загруженные фото'
+						}
+					}
 				},
-				title: {
-					display: true,
-					text: 'Chart.js Pie Chart'
-				}
-			}
+			});
 		},
-	});
+		error: function (err) {
+			console.log(err)
+		}
+	})
+
+
+	var barChart;
+
+	$.ajax({
+		type: 'GET',
+		url: "?handler=DetectedObjectsCount",
+		contentType: false,
+		processData: false,
+		success: function (res) {
+			console.log(res);
+			barChart = new Chart(document.getElementById("bar-chart-canvas"), {
+				type: 'bar',
+				data: {
+					labels: res.labels,
+				},
+				options: {
+					scales: {
+						x: {
+							stacked: true,
+						},
+						y: {
+							stacked: true
+						}
+					},
+					responsive: true,
+					maintainAspectRatio: false,
+					legend: { display: false },
+					title: {
+						display: true,
+						text: 'Количество СИЗ'
+					}
+				}
+			});
+			for (var i = 0; i < res.countThisWeek.length; i++) {
+				var dataset = {
+					label: res.ppeLabels[i],
+					data: res.countThisWeek[i],
+					stack: 'Stack 0',
+				}
+				barChart.data.datasets.push(dataset);
+			}
+			for (var i = 0; i < res.countLastWeek.length; i++) {
+				var dataset = {
+					label: res.ppeLabels[i] + " на прошлой неделе",
+					data: res.countLastWeek[i],
+					stack: 'Stack 1',
+				}
+				barChart.data.datasets.push(dataset);
+			}
+			barChart.update();
+			//console.log(barChart.data.datasets);
+		},
+		error: function (err) {
+			console.log(err)
+		}
+	})
+
+	var pieChart;
+	$.ajax({
+		type: 'GET',
+		url: "?handler=ViolationsByPerson&type=" + 'week',
+		contentType: false,
+		processData: false,
+		success: function (res) {
+			console.log("------" + res.color);
+			pieChart = new Chart(document.getElementById("pie-chart"), {
+				type: 'pie',
+				data: {
+					labels: res.labels,
+					datasets: [
+						{
+							label: 'Рабочие',
+							data: res.data,
+							//backgroundColor: res.color,
+						}
+					]
+				},
+
+				options: {
+					
+					responsive: true,
+					plugins: {
+						legend: {
+							display: false,
+							position: 'left',
+							labels: {
+								fontColor: 'white'
+							}
+						},
+						title: {
+							display: true,
+							text: 'Нарушения'
+						}
+					}
+				},
+			});
+
+		},
+		error: function (err) {
+			console.log(err)
+		}
+	})
+
+	jQueryCreatePieChart = (type) => {
+		let url = "?handler=ViolationsByPerson&type=" + type;
+		console.log(url);
+		try {
+			$.ajax({
+				type: 'GET',
+				url: url,
+				contentType: false,
+				processData: false,
+				success: function (res) {
+					console.log(res);
+					pieChart.data.labels = res.labels;
+					pieChart.data.datasets[0].data = res.data;
+					pieChart.update();
+
+				},
+				error: function (err) {
+					console.log(err)
+				}
+			})
+			return false;
+		} catch (ex) {
+			console.log(ex)
+		}
+	}
+	
 
 	var polarChart;
 
@@ -89,13 +190,13 @@ $(document).ready(function () {
 				data: {
 					labels: res.labels,
 					datasets: [
-						{
-							label: 'Обнаружения',
-							data: res.data,
-							backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(153, 102, 255)'],
-							borderColor: 'rgb(0, 0, 0, 0.0)',
-							pointBackgroundColor: 'rgb(0, 0, 0, 0.0)',
-						},
+						//{
+						//	label: 'Обнаружения',
+						//	data: res.data,
+						//	//backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(153, 102, 255)'],
+						//	borderColor: 'rgb(0, 0, 0, 0.0)',
+						//	pointBackgroundColor: 'rgb(0, 0, 0, 0.0)',
+						//},
 						{
 							label: 'Обнаружения',
 							data: res.data,
@@ -127,6 +228,7 @@ $(document).ready(function () {
 					},
 					plugins: {
 						legend: {
+							display: false,
 							position: 'left',
 							labels: {
 								fontColor: 'white'
@@ -196,9 +298,9 @@ $(document).ready(function () {
 					plugins: {
 						title: {
 							display: true,
-							text: 'Chart.js Line Chart - Cubic interpolation mode'
+							text: 'Интенсивность нахождения объектов'
 						},
-
+						
 					},
 					interaction: {
 						intersect: false,

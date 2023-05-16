@@ -21,10 +21,13 @@
                 <p class="text-white">Камера</p>
             </th>
             <th>
-                <p class="text-white">Id предмета</p>
+                <p class="text-white">Обьект</p>
             </th>
             <th>
-                <p class="text-white">Объект обнаружения</p>
+                <p class="text-white">Работник</p>
+            </th>
+            <th>
+                <p class="text-white">Вероятность</p>
             </th>
             <th>
                 <p class="text-white">Время</p>
@@ -41,9 +44,10 @@
                 <td><p class="text-white">@log.Text</p></td>
                 <td><p class="text-white">@log.CameraId</p></td>
                 <td><p class="text-white">@log.CameraName</p></td>
-                <td><p class="text-white">@log.ObjectId</p></td>
-                <td><p class="text-white">@log.ObjectName</p></td>
-                <td><p class="text-white">@log.DateTime.ToString("dd/MM/yyyy hh:mm:ss")</p></td>
+                <td><p class="text-white">@log.PPEitem</p></td>
+                <td><p class="text-white">@log.PersonName</p></td>
+                <td><p class="text-white">@log.PersonConf</p></td>
+                <td><p class="text-white">@log.DateTime</p></td>
                 @*<td><a href="@Url.Page("Index", "DownloadFile", new { fileName = log.DetectionPath})">Download</a></td>*@
                 <td>
                     <a href="#" onclick="jDownload('@log.DetectionPath?.Replace("\\", "\\\\")')" class="link-light text-white">Скачать</a>
