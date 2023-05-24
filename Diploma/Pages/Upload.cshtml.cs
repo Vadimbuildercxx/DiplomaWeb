@@ -1,12 +1,15 @@
 using Diploma.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.IO;
 
 namespace Diploma.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class UploadModel : PageModel
     {
         [BindProperty]

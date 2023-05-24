@@ -1,0 +1,39 @@
+﻿@using Diploma.Models;
+@using Diploma.ViewModels;
+
+@*// Pages/Shared/_PersonModalPartial.cshtml*@
+@model UserTmp
+<!-- Modal -->
+
+<div class="modal-content rounded-3 bg-black">
+    <div class="modal-body">
+        <form asp-page-handler="UserCreateOrEdit" asp-route-id="@Model.User.Id" method="post" onsubmit="return jQueryModalPostUser('UserListPartialView');">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+            <input asp-for="User.Id" class="form-control" type="hidden" id="id-user-input">
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="User.UserName" class="form-control" placeholder=" " readonly>
+                        <label asp-for="User.UserName" for="floatingInput"></label>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <select asp-for="User.Role" asp-items="Model.Selects" class="form-select" id="select-role-user"></select> @*asp-items="Model.Selects"*@
+                        <label asp-for="User.Role" class="form-label">Роль</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary save-button">Сохранить</button>
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

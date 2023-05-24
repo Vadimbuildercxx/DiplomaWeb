@@ -14,14 +14,14 @@
                 <div class="col-lg-6">
                     <div class="form-floating mb-3">
                         <input asp-for="Name" class="form-control" placeholder=" ">
-                        <label asp-for="Name" for="floatingInput"></label>
+                        <label asp-for="Name" for="floatingInput">Наименование</label>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-floating mb-3">
                         <input asp-for="Description" class="form-control" placeholder=" " />
-                        <label asp-for="Description" for="floatingInput"></label>
+                        <label asp-for="Description" for="floatingInput">Описание</label>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="col-lg-6">
                     <div class="form-floating mb-3">
                         <input asp-for="Level" type="number" class="form-control" placeholder=" " />
-                        <label asp-for="Level" for="floatingInput"></label>
+                        <label asp-for="Level" for="floatingInput">Уровень</label>
                         <span asp-validation-for="Level" class="text-danger"></span>
                     </div>
                     @*<label asp-for="Area" class="col-form-label text-white"></label>

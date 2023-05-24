@@ -30,11 +30,18 @@ builder.Services.AddDbContext<DBContext>(options =>
                     errorNumbersToAdd: null)
                 ), ServiceLifetime.Scoped);
 
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>,ApplicationUserClaimsPrincipalFactory>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DBContext>().AddRoles<IdentityRole>();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => options.LoginPath = "/Login");
+
+builder.Services.ConfigureApplicationCookie(opts =>
+{
+    opts.AccessDeniedPath = "/Error";
+});
 
 //builder.Services.AddScoped<Diploma.Controllers.RabbitMQBusService>();
 builder.Services.ConfigureApplicationCookie(options =>

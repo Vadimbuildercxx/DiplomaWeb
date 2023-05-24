@@ -121,9 +121,6 @@ namespace Diploma.Controllers
                     }
                 }
             }
-            //List<string> uniqueObject = yamlConfiguration.Detections.Where(
-            //    x => yamlConfiguration.ClassNames.Contains(yamlConfiguration.DetectedObjectName((int)x[1])) &&
-            //    yamlConfiguration.DetectedObjectName((int)x[1]) != _faceClass).Select(x => yamlConfiguration.DetectedObjectName((int)x[1])).ToList();
 
             List<string> uniqueObject = yamlConfiguration.ClassNames.Where(x => x != _faceClass).ToList();
             

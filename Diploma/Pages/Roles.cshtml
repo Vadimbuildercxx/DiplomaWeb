@@ -2,3 +2,25 @@
 @model Diploma.Pages.RolesModel
 @{
 }
+
+
+<h1 class=" text-light">Список ролей</h1>
+<div class="container">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <td class=" text-light">Id</td>
+                <td class=" text-light">Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model.Roles)
+            {
+                <tr>
+                    <td class=" text-light">@role.Id</td>
+                    <td class=" text-light">@role.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

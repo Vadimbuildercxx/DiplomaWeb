@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Diploma.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Diploma.Pages
@@ -7,9 +8,10 @@ namespace Diploma.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, DBContext dbContext)
         {
             _logger = logger;
+            Console.WriteLine(dbContext.UserRoles.FirstOrDefault().RoleId + dbContext.UserRoles.FirstOrDefault().UserId);
         }
 
         public IActionResult OnGet()

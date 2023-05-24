@@ -1,15 +1,17 @@
 {
 
-	"Weights": "saved_weights\\best_transfer_hw_10exp.pt",
+	"Weights": "saved_weights\\best_7x.pt",
 	"PersonsFacesPath": "C:\\Users\\Vadim\\source\\repos\\Diploma\\Diploma\\wwwroot\\person_faces\\",
 	"DetectionPaths": "C:\\Users\\Vadim\\source\\repos\\DiplomaAI\\detections",
 	"IsDetectFaces": true,
-	"ImageSize": 640,
+	"ImageSize": 1280,
 	"Stride": 32,
-	"SendEveryXsec": 0.1,
-	"Cameras": [ 1 ],
+	"SendEveryXsec": 7,
+	"Cameras": [ 1, 2, 3 ],
 	"Sources": [
-		"C:\\Users\\Vadim\\Videos\\TestVideos\\istockphoto-1470367700-640_adpp_is.mp4"
+		"C:\\Users\\Vadim\\Videos\\TestVideos\\istockphoto-talk.mp4",
+		"C:\\Users\\Vadim\\Videos\\TestVideos\\istockphoto-1465797715-640_adpp_is.mp4",
+		"C:\\Users\\Vadim\\Videos\\TestVideos\\testVideo.mp4"
 	],
 	"FaceClass": "head"
 

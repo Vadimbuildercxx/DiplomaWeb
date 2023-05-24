@@ -25,6 +25,8 @@ namespace Diploma.Pages
 {
     public record class CameraTmp(Camera Camera, List<SelectListItem>? Selects);
 
+    public record class UserTmp(IdentityUserDTO User, List<SelectListItem>? Selects);
+
     public class EditModel : PageModel
     {
         private class Element
@@ -87,11 +89,27 @@ namespace Diploma.Pages
         }
 
         [BindProperty]
-        public List<IdentityUser> UserList
+        public List<IdentityUserDTO> UserList
         {
             get
             {
-                return _dbContext.Users.ToList();
+                List<IdentityUser> userList = _dbContext.Users.ToList();
+                List<IdentityUserDTO> dtoList = new List<IdentityUserDTO>();
+                foreach (IdentityUser user in userList)
+                {
+                    string roleId = _dbContext.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
+                    dtoList.Add(new IdentityUserDTO()
+                    {
+                        Id=user.Id,
+                        AccessFailedCount = user.AccessFailedCount,
+                        Email = user.Email,
+                        UserName = user.UserName,
+                        PhoneNumber = user.PhoneNumber,
+                        Role = _dbContext.Roles.Where(x => x.Id == roleId).Select(x=>x.Name).FirstOrDefault()
+
+                    });
+                }
+                return dtoList;
             }
             private set { }
 
@@ -108,7 +126,53 @@ namespace Diploma.Pages
             return new PartialViewResult
             {
                 ViewName = "_UserListPartial",
-                ViewData = new ViewDataDictionary<List<IdentityUser>>(ViewData, UserList)
+                ViewData = new ViewDataDictionary<List<IdentityUserDTO>>(ViewData, UserList)
+            };
+        }
+
+        public PartialViewResult OnGetUserCreateOrEdit(string id)
+        {
+            List<SelectListItem> roles = _dbContext.Roles.Select(a => new SelectListItem { Value = a.Id, Text = a.Name }).ToList();
+
+            return new PartialViewResult
+            {
+                ViewName = "_UserModalPartial",
+                ViewData = new ViewDataDictionary<UserTmp>(ViewData,
+                        new UserTmp(UserList.Where(x=>x.Id==id).FirstOrDefault(), roles))
+            };
+        }
+
+        public PartialViewResult OnPostUserCreateOrEdit(string id, string role)
+        {
+            var q = from u in _dbContext.UserRoles
+                    where u.UserId == id
+                    select u;
+            if (q.Count() > 0)
+            {
+                IdentityUserRole<string> iUser = q.First();
+                _dbContext.UserRoles.Remove(iUser);
+                _dbContext.SaveChanges();
+                _dbContext.UserRoles.Add(new IdentityUserRole<string>()
+                {
+                    RoleId = role,
+                    UserId = id
+                });
+
+            }
+            else
+            {
+                _dbContext.UserRoles.Add(new IdentityUserRole<string>()
+                {
+                    RoleId = role,
+                    UserId = id
+                });
+            }
+
+            _dbContext.SaveChanges();
+            return new PartialViewResult
+            {
+                ViewName = "_UserListPartial",
+                ViewData = new ViewDataDictionary<List<IdentityUserDTO>>(ViewData, UserList)
             };
         }
 
@@ -361,7 +425,6 @@ namespace Diploma.Pages
         {
             if (id == 0)
             {
-                Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++");
                 return new PartialViewResult
                 {
                     ViewName = "_PersonModalPartial",

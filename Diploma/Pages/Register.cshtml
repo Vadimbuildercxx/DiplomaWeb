@@ -6,26 +6,26 @@
 <div class="container mt-5">
     <div class="row justify-content-center align-items-center">
         <div class="col-sm-12 col-md-12 col-lg-4">
-            <h1 class="mb-3">Register</h1>
+            <h1 class="mb-3  text-light">Register</h1>
 
             <form method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Model.Email">Email Address</label>
+                    <label class="form-label  text-light" asp-for="Model.Email">Email Address</label>
                     <input class="form-control" asp-for="Model.Email" />
                     <span class="text-danger" asp-validation-for="Model.Email"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Model.Password">Password</label>
-                    <input class="form-control" asp-for="Model.Password" />
+                    <label class="form-label  text-light" asp-for="Model.Password">Password</label>
+                    <input class="form-control" asp-for="Model.Password" type="password"/>
                     <span class="text-danger" asp-validation-for="Model.Password"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Model.ConfirmPassword">Confirm password</label>
-                    <input class="form-control" asp-for="Model.ConfirmPassword" />
+                    <label class="form-label  text-light" asp-for="Model.ConfirmPassword">Confirm password</label>
+                    <input class="form-control" asp-for="Model.ConfirmPassword" type="password" />
                     <span class="text-danger" asp-validation-for="Model.ConfirmPassword"></span>
                 </div>
 

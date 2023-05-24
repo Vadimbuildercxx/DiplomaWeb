@@ -30,9 +30,12 @@
                     <a onclick="jQueryModalGet('?handler=CameraCreateOrEdit&id=@cam.Id','Редактировать')" class="btn btn-outline-light">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a onclick="jQueryModalGet('?handler=CameraDelete&id=@cam.Id','Удалить')" class="btn btn-outline-light">
-                        <i class="bi bi-x-lg"></i>
-                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a onclick="jQueryModalGet('?handler=CameraDelete&id=@cam.Id','Удалить')" class="btn btn-outline-light">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    }
                 </td>
             </tr>
         }

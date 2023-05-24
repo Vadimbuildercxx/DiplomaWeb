@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -37,7 +36,7 @@
 
 <body style="font-family: 'Montserrat', sans-serif;">
     <div class="wrapper">
-        <div class="container text-center">
+        <div class=" container-fluid text-center mb-lg-3">
             <div class="d-block" style="height: 50vh">
                 @*<p class="fs-1 text-light" style="height: 50vh; border: solid 5px pink">МОНИТОРИНГ<br />средств индивидуальной защиты</p>*@
                 <p style="height: 25%"></p>
@@ -45,36 +44,41 @@
                 <p class="fs-2 text-light">средств индивидуальной защиты</p>
                
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-black border border-secondary shadow-lg" style="height: 14rem">
-                        <div class="card-body">
-                            <h5 class="card-title text-light">Просмотр логов</h5>
-                            <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a class="btn btn-primary border-0" asp-area="" asp-page="/Logs" style="border-radius: 10px">Просмотр</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-black border border-secondary shadow-lg" style="height: 14rem">
+                            <div class="card-body">
+                                <h5 class="card-title text-light">Просмотр логов</h5>
+                                <p class="card-text text-light">Просмотр данных об обнаружениях, а также изобаржений и времени нахождения.</p>
+                                
+                                <a class="btn btn-primary border-0" asp-area="" asp-page="/Logs" style="border-radius: 10px; bottom:0!important">Просмотр</a>
+                                
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col">
-                    <div class="card bg-black border border-secondary shadow-lg" style="height: 14rem;">
-                        <div class=" card-body solid-card-style">
-                            <h5 class="card-title text-light">Редактирование данных</h5>
-                            <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a class="btn btn-primary border-0" asp-area="" asp-page="/Edit" style="border-radius: 10px">Редактировать</a>
+                    <div class="col">
+                        <div class="card bg-black border border-secondary shadow-lg" style="height: 14rem;">
+                            <div class=" card-body solid-card-style">
+                                <h5 class="card-title text-light">Редактирование данных</h5>
+                                <p class="card-text text-light">Позволяет редактировать данные камер, сотрудников и областей. Также просмотр данных пользователей для администраторов.</p>
+                                <a class="btn btn-primary border-0" asp-area="" asp-page="/Edit" style="border-radius: 10px">Редактировать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card bg-black border border-secondary shadow-lg" style="height: 14rem">
+                            <div class="card-body">
+                                <h5 class="card-title text-light">Загрузка изображений</h5>
+                                <p class="card-text text-light">Удобная и быстрая загрузка нескольких изображений для каждого работника системы.</p>
+                                <a class="btn btn-primary border-0" asp-area="" asp-page="/Upload" style="border-radius: 10px">Загрузить</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card bg-black border border-secondary shadow-lg" style="height: 14rem">
-                        <div class="card-body">
-                            <h5 class="card-title text-light">Загрузка изображений</h5>
-                            <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a class="btn btn-primary border-0" asp-area="" asp-page="/Upload" style="border-radius: 10px">Загрузить</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 

@@ -1,53 +1,56 @@
 ﻿@using Diploma.Models;
+@using Diploma.ViewModels;
 @using Microsoft.AspNetCore.Identity;
 
-@model List<IdentityUser>
+@model List<IdentityUserDTO>
 
-<table id="UserPartialView" class="table table-borderless GridPartialView">
-    <thead>
-        <tr>
-            <th> 
-                <p class="text-white">Id</p>
-            </th>
-            <th> 
-                <p class="text-white">Имя пользователя</p>
-            </th>
-            <th> 
-                <p class="text-white">Email</p>
-            </th>
-            <th>
-                <p class="text-white">Номер телефона</p>
-            </th>
-            <th>
-                <p class="text-white">Количество неправильных входов</p>
-            </th>
-            <th>
-                <p class="text-white">Действия</p>
-            </th>
-        </tr>
-    </thead>
-    <tbody id="UserListGridContent">
-        @foreach(IdentityUser user in Model)
-        {
+@if (User.IsInRole("Admin")){
+    <table id="UserPartialView" class="table table-borderless GridPartialView">
+        <thead>
             <tr>
-                <td><p class="text-white">@user.Id</p></td>
-                <td><p class="text-white">@user.UserName</p></td>
-                <td><p class="text-white">@user.Email</p></td>
-                <td><p class="text-white">@user.PhoneNumber</p></td>
-                <td><p class="text-white">@user.AccessFailedCount</p></td>
-                
-                <td>
-                    <button type="button" class="btn btn-outline-danger" data-handler="UserListPartial" data-toggle="ajax-modal-delete-person" data-id="@user.Id" data-url="@Url.Page("Edit", "UserModalDeletePartial")">
-                        Удалить
-                    </button>
-                    <button type="button" class="btn btn-outline-danger" data-handler="UserListPartial" data-toggle="ajax-modal-edit-person" data-id="@user.Id" data-url="@Url.Page("Edit", "UserModalEditPartial")">
-                        Редактировать
-                    </button>
-                </td>
+                <th> 
+                    <p class="text-white">Id</p>
+                </th>
+                <th> 
+                    <p class="text-white">Имя пользователя</p>
+                </th>
+                <th> 
+                    <p class="text-white">Email</p>
+                </th>
+                <th>
+                    <p class="text-white">Номер телефона</p>
+                </th>
+                <th>
+                    <p class="text-white">Количество неправильных входов</p>
+                </th>
+                <th>
+                    <p class="text-white">Роль</p>
+                </th>
+                <th>
+                    <p class="text-white">Действия</p>
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody id="UserListGridContent">
+            @foreach (IdentityUserDTO user in Model)
+            {
+                <tr>
+                    <td><p class="text-white">@user.Id</p></td>
+                    <td><p class="text-white">@user.UserName</p></td>
+                    <td><p class="text-white">@user.Email</p></td>
+                    <td><p class="text-white">@user.PhoneNumber</p></td>
+                    <td><p class="text-white">@user.AccessFailedCount</p></td>
+                    <td><p class="text-white">@user.Role</p></td>
+                    <td>
+                        <a onclick="jQueryModalGet('?handler=UserCreateOrEdit&id=@user.Id','Редактировать')" class="btn btn-outline-light">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 <script>
     $("#UserPartialView").DataTable({
         stateSave: true,

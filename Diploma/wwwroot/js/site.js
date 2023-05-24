@@ -44,6 +44,28 @@ $(document).ready(function () {
             console.log(ex)
         }
     }
+    jQueryModalPostUser = (list) => {
+        var role = document.getElementById("select-role-user").value;
+        var id = document.getElementById("id-user-input").value;
+        try {
+            $.ajax({
+                type: 'POST',
+                url: "?handler=UserCreateOrEdit&id=" + id + "&role=" + role,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                success: function (res) {
+                    $('#' + list).html(res)
+                    $('#form-modal').modal('hide');
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+            return false;
+        } catch (ex) {
+            console.log(ex)
+        }
+    }
+
     jQueryModalPost = (form, list) => {
         try {
             $.ajax({

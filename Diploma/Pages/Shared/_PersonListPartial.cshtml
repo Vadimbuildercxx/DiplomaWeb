@@ -37,9 +37,12 @@
                     <a onclick="jQueryModalGet('?handler=PersonCreateOrEdit&id=@person.Id','Редактировать')" class="btn btn-outline-light">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a onclick="jQueryModalGet('?handler=PersonDelete&id=@person.Id','Удалить')" class="btn btn-outline-light"> 
-                        <i class="bi bi-x-lg"></i>
-                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a onclick="jQueryModalGet('?handler=PersonDelete&id=@person.Id','Удалить')" class="btn btn-outline-light"> 
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    }
                     <a onclick="jQueryModalGet('?handler=PersonInfo&id=@person.Id','Информация')" class="btn btn-outline-light">
                         <i class="bi bi-three-dots"></i>
                     </a>

@@ -29,9 +29,13 @@
                     <a onclick="jQueryModalGet('?handler=AreaCreateOrEdit&id=@area.Id','Редактировать')" class="btn btn-outline-light">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a onclick="jQueryModalGet('?handler=AreaDelete&id=@area.Id','Удалить')" class="btn btn-outline-light">
-                        <i class="bi bi-x-lg"></i>
-                    </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a onclick="jQueryModalGet('?handler=AreaDelete&id=@area.Id','Удалить')" class="btn btn-outline-light">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    }
+                    
 
                     @*<button type="button" class="btn btn-outline-danger" data-handler="AreaListPartial" data-toggle="ajax-modal-delete-person" data-id="@area.Id" data-url="@Url.Page("Edit", "AreaModalDeletePartial")">
                         Удалить

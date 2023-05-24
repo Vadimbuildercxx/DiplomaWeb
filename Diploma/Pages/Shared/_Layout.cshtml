@@ -44,10 +44,16 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     @{
+
                         if (SignInManager.IsSignedIn(principal: User))
                         {
-                            <ul class="navbar-nav flex-grow-1 justify-content-center">
+                            string userRole = "User";
+                            @if (User.IsInRole("Admin")){
+                                userRole = "Admin";
+                            }
+                            <ul class="navbar-nav flex-grow-1 justify-content-center start-50 position-absolute translate-middle-x">
 
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-area="" asp-page="/Privacy">О сайте</a>
@@ -58,8 +64,16 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-area="" asp-page="/ConfigurationSettings">Конфигурация</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-page="/Roles">Роли</a>
+                                </li>
                             </ul>
-                            <ul class="navbar-nav d-flex justify-content-end">
+                            <ul class="navbar-nav d-flex justify-content-end end-0 position-absolute translate-middle-x">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white p-sm-0 d-flex ">@User.Identity?.Name</a>
+                                    <a class="nav-link text-white p-sm-0 d-flex ">Роль: @userRole</a>
+                                </li>
+                                    
                                 <li class="nav-item">
                                     <a class="btn btn-primary border-0" asp-area="" asp-page="/Logout">Выход</a>
                                 </li>
@@ -70,10 +84,10 @@
                         {
                             <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
                                 <li class="nav-item">
-                                    <a asp-page="/Login" class="btn btn-primary">Зайти</a>
+                                    <a asp-page="/Login" class="btn btn-primary" style="border-width:0">Зайти</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-page="/Register" class="btn">Зарегистрироваться</a>
+                                    <a asp-page="/Register" class="btn btn-outline-light">Зарегистрироваться</a>
                                 </li>
                             </ul>
                         }

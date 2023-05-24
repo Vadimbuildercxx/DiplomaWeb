@@ -1,0 +1,33 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity;
+@Html.AntiForgeryToken()
+@model IdentityRole
+@{
+}
+<div class="modal-content rounded-3 bg-black">
+    <div class="modal-body">
+        <form asp-page-handler="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" placeholder=" ">
+                        <label asp-for="Name" for="floatingInput"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>*@
+                @*<button type="button" class="btn btn-secondary close-button" data-dismiss="modal">Отмена</button>*@
+                <button type="submit" class="btn btn-primary save-button">Сохранить</button>
+            </div>
+        </form>
+    </div>
+    @*<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+    <button type="button" class="btn btn-primary" data-listid="AreaListPartialView" data-handler="AreaListPartial" data-save="modal">Сохранить</button>
+    </div>*@
+
+</div>
